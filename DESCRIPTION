@@ -1,0 +1,5 @@
+Package: hmcSandbox
+Type: Package
+Title: Sandbox and diagnostics for HMC-samplers
+Version: 0.0.1.0
+RoxygenNote: 7.2.3
