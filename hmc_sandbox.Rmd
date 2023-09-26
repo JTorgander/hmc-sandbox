@@ -3,10 +3,16 @@ title: "R Notebook"
 output: html_notebook
 ---
 ```{r}
-source('./R/NUTS.R')
-source('./R/bridgestan_helpers.R')
-
+library(devtools)
+library(tidyverse)
+load_all(".")
+source("./R/NUTS.R")
 ```
+```{r}
+library(roxygen2); # Read in the roxygen2 R package
+roxygenise(); 
+```
+
 
 
 
@@ -21,16 +27,32 @@ bridgestan_path <- "~/Documents/bridgestan"
 
 
 
-model <- get_model(bridgestan_path, model_name)
+model <- get_model(model_name)
+
 ```
 
 
 ```{r}
-samples <- NUTS(model, c(0,1), 0.01, 100, 1)
+sampling(model$stan_model, model$data) 
 ```
+
 
 ```{r}
-
+samples <- NUTS(model$BS_model, c(0,1), 0.001, 1000)
 ```
+
+
+```{r}
+data= get_mixture_data(100, pi=c(0.7, 0.3), mu=matrix(c(-5, 2), 2, 1), sigma = rep(1,2))
+```
+
+
+```{r}
+model_name <- "gaussian_mixture"
+bridgestan_path <- "~/Documents/bridgestan"
+
+write_json_data(data, bridgestan_path, model_name)
+```
+
 
 

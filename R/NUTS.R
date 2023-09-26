@@ -12,7 +12,7 @@ source('./R/NUTS_helpers.R')
 #' @param n_samples Number of post warmup samples generated
 #' @export
 NUTS <- function(stan_model, theta_0, eps, n_samples){
-    delta_max = 500
+    delta_max = 100
     dim <- length(theta_0)
 
     theta_prev <- stan_model$param_unconstrain(theta_0)
@@ -69,6 +69,7 @@ NUTS <- function(stan_model, theta_0, eps, n_samples){
         if(not_stop_1){
 
           accept_prob <- min(1, n_accepted_states_new/ n_accepted_states)
+
           if (runif(1) < accept_prob){
           theta_new <- theta_proposal
           }

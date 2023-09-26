@@ -10,6 +10,7 @@ leapfrog_1step <- function(stan_model, current_q, current_p, eps, m=1){
   p <- current_p + (eps/2)*g
   q <-  current_q + (eps * p)/m
 
+
   g <- stan_model$log_density_gradient(q)$gradient
 
   p <- p + (eps/2) * g
@@ -74,7 +75,10 @@ build_tree <- function(stan_model, theta, p, u, v, j, eps, delta_max){
     theta_new_1 <- tree_1$theta_new
     n_accepted_states_1 <- tree_1$n_accepted_states
     not_stop_1 <- tree_1$not_stop_1
-
+    if (is.na(not_stop_1)){
+      print(tree_1)
+      print(j)
+      }
     if (not_stop_1){
 
       if (v == -1) {

@@ -1754,45 +1754,202 @@ display: none;
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKCcuL1IvTlVUUy5SJylcbnNvdXJjZSgnLi9SL2JyaWRnZXN0YW5faGVscGVycy5SJylcblxuYGBgIn0= -->
-<pre class="r"><code>source(&#39;./R/NUTS.R&#39;)
-source(&#39;./R/bridgestan_helpers.R&#39;)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkZXZ0b29scylcbmxpYnJhcnkodGlkeXZlcnNlKVxubG9hZF9hbGwoXCIuXCIpXG5gYGAifQ== -->
+<pre class="r"><code>library(devtools)
+library(tidyverse)
+load_all(&quot;.&quot;)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyb3h5Z2VuMik7ICMgUmVhZCBpbiB0aGUgcm94eWdlbjIgUiBwYWNrYWdlXG5yb3h5Z2VuaXNlKCk7IFxuYGBgIn0= -->
+<pre class="r"><code>library(roxygen2); # Read in the roxygen2 R package
+roxygenise(); </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZzogcm94eWdlbjIgcmVxdWlyZXMgRW5jb2Rpbmc6IFwiVVRGLThcIlxu4oS5IEN1cnJlbnQgZW5jb2RpbmcgaXMgTkHihLkgTG9hZGluZyBobWNTYW5kYm94V2FybmluZzog4pSA4pSAIENvbmZsaWN0cyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgaG1jU2FuZGJveCBjb25mbGljdHNcbuKUgOKUgFxu4pyWIGBnZXRfbW9kZWxgIG1hc2tzIGBobWNTYW5kYm94OjpnZXRfbW9kZWwoKWAuXG7inJYgYE5VVFNgIG1hc2tzIGBobWNTYW5kYm94OjpOVVRTKClgLlxu4oS5IERpZCB5b3UgYWNjaWRlbnRhbGx5IHNvdXJjZSBhIGZpbGUgcmF0aGVyIHRoYW4gdXNpbmcgYGxvYWRfYWxsKClgP1xuICBSdW4gYHJtKGxpc3QgPSBjKFwiZ2V0X21vZGVsXCIsIFwiTlVUU1wiKSlgIHRvIHJlbW92ZSB0aGUgY29uZmxpY3RzLldyaXRpbmcgXHUwMDFiXTg7O2ZpbGU6Ly8vVXNlcnMvamFrb2J0b3JnYW5kZXIvUHJvamVjdC9obWMtc2FuZGJveC9OQU1FU1BBQ0VcdTAwMDdOQU1FU1BBQ0VcdTAwMWJdODs7XHUwMDA3V3JpdGluZyBcdTAwMWJdODs7aWRlOnJ1bjpwa2dsb2FkOjpkZXZfaGVscCgnZ2V0X21vZGVsJylcdTAwMDdnZXRfbW9kZWwuUmRcdTAwMWJdODs7XHUwMDA3V3JpdGluZyBcdTAwMWJdODs7aWRlOnJ1bjpwa2dsb2FkOjpkZXZfaGVscCgnZ2V0X21peHR1cmVfZGF0YScpXHUwMDA3Z2V0X21peHR1cmVfZGF0YS5SZFx1MDAxYl04OztcdTAwMDdXcml0aW5nIFx1MDAxYl04OztpZGU6cnVuOnBrZ2xvYWQ6OmRldl9oZWxwKCd3cml0ZV9qc29uX2RhdGEnKVx1MDAwN3dyaXRlX2pzb25fZGF0YS5SZFx1MDAxYl04OztcdTAwMDdcbiJ9 -->
+<pre><code>Warning: roxygen2 requires Encoding: &quot;UTF-8&quot;
+ℹ Current encoding is NAℹ Loading hmcSandboxWarning: ── Conflicts ────────────────────────────────────────────────────────────── hmcSandbox conflicts
+──
+✖ `get_model` masks `hmcSandbox::get_model()`.
+✖ `NUTS` masks `hmcSandbox::NUTS()`.
+ℹ Did you accidentally source a file rather than using `load_all()`?
+  Run `rm(list = c(&quot;get_model&quot;, &quot;NUTS&quot;))` to remove the conflicts.Writing ]8;;file:///Users/jakobtorgander/Project/hmc-sandbox/NAMESPACENAMESPACE]8;;Writing ]8;;ide:run:pkgload::dev_help(&#39;get_model&#39;)get_model.Rd]8;;Writing ]8;;ide:run:pkgload::dev_help(&#39;get_mixture_data&#39;)get_mixture_data.Rd]8;;Writing ]8;;ide:run:pkgload::dev_help(&#39;write_json_data&#39;)write_json_data.Rd]8;;</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <div id="loading-bridgestan-model" class="section level1">
 <h1>Loading bridgestan model</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5saWJyYXJ5KHJzdGFuKVxubGlicmFyeShicmlkZ2VzdGFuKVxubW9kZWxfbmFtZSA8LSBcImdhdXNzaWFuXCJcbmJyaWRnZXN0YW5fcGF0aCA8LSBcIn4vRG9jdW1lbnRzL2JyaWRnZXN0YW5cIlxuXG5cblxubW9kZWwgPC0gZ2V0X21vZGVsKGJyaWRnZXN0YW5fcGF0aCwgbW9kZWxfbmFtZSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5saWJyYXJ5KHJzdGFuKVxuXG5tb2RlbF9uYW1lIDwtIFwiZ2F1c3NpYW5cIlxuYnJpZGdlc3Rhbl9wYXRoIDwtIFwifi9Eb2N1bWVudHMvYnJpZGdlc3RhblwiXG5cblxuXG5tb2RlbCA8LSBnZXRfbW9kZWwobW9kZWxfbmFtZSlcbmBgYCJ9 -->
 <pre class="r"><code>
 library(rstan)
-library(bridgestan)
+
 model_name &lt;- &quot;gaussian&quot;
 bridgestan_path &lt;- &quot;~/Documents/bridgestan&quot;
 
 
 
-model &lt;- get_model(bridgestan_path, model_name)</code></pre>
+model &lt;- get_model(model_name)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoicmVjb21waWxpbmcgdG8gYXZvaWQgY3Jhc2hpbmcgUiBzZXNzaW9uXG4ifQ== -->
+<pre><code>recompiling to avoid crashing R session</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2FtcGxpbmcobW9kZWwkc3Rhbl9tb2RlbCwgbW9kZWwkZGF0YSkgXG5gYGAifQ== -->
+<pre class="r"><code>sampling(model$stan_model, model$data) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5TQU1QTElORyBGT1IgTU9ERUwgJ2dhdXNzaWFuJyBOT1cgKENIQUlOIDEpLlxuQ2hhaW4gMTogXG5DaGFpbiAxOiBHcmFkaWVudCBldmFsdWF0aW9uIHRvb2sgOC41ZS0wNSBzZWNvbmRzXG5DaGFpbiAxOiAxMDAwIHRyYW5zaXRpb25zIHVzaW5nIDEwIGxlYXBmcm9nIHN0ZXBzIHBlciB0cmFuc2l0aW9uIHdvdWxkIHRha2UgMC44NSBzZWNvbmRzLlxuQ2hhaW4gMTogQWRqdXN0IHlvdXIgZXhwZWN0YXRpb25zIGFjY29yZGluZ2x5IVxuQ2hhaW4gMTogXG5DaGFpbiAxOiBcbkNoYWluIDE6IEl0ZXJhdGlvbjogICAgMSAvIDIwMDAgWyAgMCVdICAoV2FybXVwKVxuQ2hhaW4gMTogSXRlcmF0aW9uOiAgMjAwIC8gMjAwMCBbIDEwJV0gIChXYXJtdXApXG5DaGFpbiAxOiBJdGVyYXRpb246ICA0MDAgLyAyMDAwIFsgMjAlXSAgKFdhcm11cClcbkNoYWluIDE6IEl0ZXJhdGlvbjogIDYwMCAvIDIwMDAgWyAzMCVdICAoV2FybXVwKVxuQ2hhaW4gMTogSXRlcmF0aW9uOiAgODAwIC8gMjAwMCBbIDQwJV0gIChXYXJtdXApXG5DaGFpbiAxOiBJdGVyYXRpb246IDEwMDAgLyAyMDAwIFsgNTAlXSAgKFdhcm11cClcbkNoYWluIDE6IEl0ZXJhdGlvbjogMTAwMSAvIDIwMDAgWyA1MCVdICAoU2FtcGxpbmcpXG5DaGFpbiAxOiBJdGVyYXRpb246IDEyMDAgLyAyMDAwIFsgNjAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gMTogSXRlcmF0aW9uOiAxNDAwIC8gMjAwMCBbIDcwJV0gIChTYW1wbGluZylcbkNoYWluIDE6IEl0ZXJhdGlvbjogMTYwMCAvIDIwMDAgWyA4MCVdICAoU2FtcGxpbmcpXG5DaGFpbiAxOiBJdGVyYXRpb246IDE4MDAgLyAyMDAwIFsgOTAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gMTogSXRlcmF0aW9uOiAyMDAwIC8gMjAwMCBbMTAwJV0gIChTYW1wbGluZylcbkNoYWluIDE6IFxuQ2hhaW4gMTogIEVsYXBzZWQgVGltZTogMC4wMzI0NjQgc2Vjb25kcyAoV2FybS11cClcbkNoYWluIDE6ICAgICAgICAgICAgICAgIDAuMDMwMTQ1IHNlY29uZHMgKFNhbXBsaW5nKVxuQ2hhaW4gMTogICAgICAgICAgICAgICAgMC4wNjI2MDkgc2Vjb25kcyAoVG90YWwpXG5DaGFpbiAxOiBcblxuU0FNUExJTkcgRk9SIE1PREVMICdnYXVzc2lhbicgTk9XIChDSEFJTiAyKS5cbkNoYWluIDI6IFxuQ2hhaW4gMjogR3JhZGllbnQgZXZhbHVhdGlvbiB0b29rIDFlLTA1IHNlY29uZHNcbkNoYWluIDI6IDEwMDAgdHJhbnNpdGlvbnMgdXNpbmcgMTAgbGVhcGZyb2cgc3RlcHMgcGVyIHRyYW5zaXRpb24gd291bGQgdGFrZSAwLjEgc2Vjb25kcy5cbkNoYWluIDI6IEFkanVzdCB5b3VyIGV4cGVjdGF0aW9ucyBhY2NvcmRpbmdseSFcbkNoYWluIDI6IFxuQ2hhaW4gMjogXG5DaGFpbiAyOiBJdGVyYXRpb246ICAgIDEgLyAyMDAwIFsgIDAlXSAgKFdhcm11cClcbkNoYWluIDI6IEl0ZXJhdGlvbjogIDIwMCAvIDIwMDAgWyAxMCVdICAoV2FybXVwKVxuQ2hhaW4gMjogSXRlcmF0aW9uOiAgNDAwIC8gMjAwMCBbIDIwJV0gIChXYXJtdXApXG5DaGFpbiAyOiBJdGVyYXRpb246ICA2MDAgLyAyMDAwIFsgMzAlXSAgKFdhcm11cClcbkNoYWluIDI6IEl0ZXJhdGlvbjogIDgwMCAvIDIwMDAgWyA0MCVdICAoV2FybXVwKVxuQ2hhaW4gMjogSXRlcmF0aW9uOiAxMDAwIC8gMjAwMCBbIDUwJV0gIChXYXJtdXApXG5DaGFpbiAyOiBJdGVyYXRpb246IDEwMDEgLyAyMDAwIFsgNTAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gMjogSXRlcmF0aW9uOiAxMjAwIC8gMjAwMCBbIDYwJV0gIChTYW1wbGluZylcbkNoYWluIDI6IEl0ZXJhdGlvbjogMTQwMCAvIDIwMDAgWyA3MCVdICAoU2FtcGxpbmcpXG5DaGFpbiAyOiBJdGVyYXRpb246IDE2MDAgLyAyMDAwIFsgODAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gMjogSXRlcmF0aW9uOiAxODAwIC8gMjAwMCBbIDkwJV0gIChTYW1wbGluZylcbkNoYWluIDI6IEl0ZXJhdGlvbjogMjAwMCAvIDIwMDAgWzEwMCVdICAoU2FtcGxpbmcpXG5DaGFpbiAyOiBcbkNoYWluIDI6ICBFbGFwc2VkIFRpbWU6IDAuMDI4MTM2IHNlY29uZHMgKFdhcm0tdXApXG5DaGFpbiAyOiAgICAgICAgICAgICAgICAwLjAyNzkzNCBzZWNvbmRzIChTYW1wbGluZylcbkNoYWluIDI6ICAgICAgICAgICAgICAgIDAuMDU2MDcgc2Vjb25kcyAoVG90YWwpXG5DaGFpbiAyOiBcblxuU0FNUExJTkcgRk9SIE1PREVMICdnYXVzc2lhbicgTk9XIChDSEFJTiAzKS5cbkNoYWluIDM6IFxuQ2hhaW4gMzogR3JhZGllbnQgZXZhbHVhdGlvbiB0b29rIDhlLTA2IHNlY29uZHNcbkNoYWluIDM6IDEwMDAgdHJhbnNpdGlvbnMgdXNpbmcgMTAgbGVhcGZyb2cgc3RlcHMgcGVyIHRyYW5zaXRpb24gd291bGQgdGFrZSAwLjA4IHNlY29uZHMuXG5DaGFpbiAzOiBBZGp1c3QgeW91ciBleHBlY3RhdGlvbnMgYWNjb3JkaW5nbHkhXG5DaGFpbiAzOiBcbkNoYWluIDM6IFxuQ2hhaW4gMzogSXRlcmF0aW9uOiAgICAxIC8gMjAwMCBbICAwJV0gIChXYXJtdXApXG5DaGFpbiAzOiBJdGVyYXRpb246ICAyMDAgLyAyMDAwIFsgMTAlXSAgKFdhcm11cClcbkNoYWluIDM6IEl0ZXJhdGlvbjogIDQwMCAvIDIwMDAgWyAyMCVdICAoV2FybXVwKVxuQ2hhaW4gMzogSXRlcmF0aW9uOiAgNjAwIC8gMjAwMCBbIDMwJV0gIChXYXJtdXApXG5DaGFpbiAzOiBJdGVyYXRpb246ICA4MDAgLyAyMDAwIFsgNDAlXSAgKFdhcm11cClcbkNoYWluIDM6IEl0ZXJhdGlvbjogMTAwMCAvIDIwMDAgWyA1MCVdICAoV2FybXVwKVxuQ2hhaW4gMzogSXRlcmF0aW9uOiAxMDAxIC8gMjAwMCBbIDUwJV0gIChTYW1wbGluZylcbkNoYWluIDM6IEl0ZXJhdGlvbjogMTIwMCAvIDIwMDAgWyA2MCVdICAoU2FtcGxpbmcpXG5DaGFpbiAzOiBJdGVyYXRpb246IDE0MDAgLyAyMDAwIFsgNzAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gMzogSXRlcmF0aW9uOiAxNjAwIC8gMjAwMCBbIDgwJV0gIChTYW1wbGluZylcbkNoYWluIDM6IEl0ZXJhdGlvbjogMTgwMCAvIDIwMDAgWyA5MCVdICAoU2FtcGxpbmcpXG5DaGFpbiAzOiBJdGVyYXRpb246IDIwMDAgLyAyMDAwIFsxMDAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gMzogXG5DaGFpbiAzOiAgRWxhcHNlZCBUaW1lOiAwLjAyNjkyOSBzZWNvbmRzIChXYXJtLXVwKVxuQ2hhaW4gMzogICAgICAgICAgICAgICAgMC4wMzA3MTggc2Vjb25kcyAoU2FtcGxpbmcpXG5DaGFpbiAzOiAgICAgICAgICAgICAgICAwLjA1NzY0NyBzZWNvbmRzIChUb3RhbClcbkNoYWluIDM6IFxuXG5TQU1QTElORyBGT1IgTU9ERUwgJ2dhdXNzaWFuJyBOT1cgKENIQUlOIDQpLlxuQ2hhaW4gNDogXG5DaGFpbiA0OiBHcmFkaWVudCBldmFsdWF0aW9uIHRvb2sgOWUtMDYgc2Vjb25kc1xuQ2hhaW4gNDogMTAwMCB0cmFuc2l0aW9ucyB1c2luZyAxMCBsZWFwZnJvZyBzdGVwcyBwZXIgdHJhbnNpdGlvbiB3b3VsZCB0YWtlIDAuMDkgc2Vjb25kcy5cbkNoYWluIDQ6IEFkanVzdCB5b3VyIGV4cGVjdGF0aW9ucyBhY2NvcmRpbmdseSFcbkNoYWluIDQ6IFxuQ2hhaW4gNDogXG5DaGFpbiA0OiBJdGVyYXRpb246ICAgIDEgLyAyMDAwIFsgIDAlXSAgKFdhcm11cClcbkNoYWluIDQ6IEl0ZXJhdGlvbjogIDIwMCAvIDIwMDAgWyAxMCVdICAoV2FybXVwKVxuQ2hhaW4gNDogSXRlcmF0aW9uOiAgNDAwIC8gMjAwMCBbIDIwJV0gIChXYXJtdXApXG5DaGFpbiA0OiBJdGVyYXRpb246ICA2MDAgLyAyMDAwIFsgMzAlXSAgKFdhcm11cClcbkNoYWluIDQ6IEl0ZXJhdGlvbjogIDgwMCAvIDIwMDAgWyA0MCVdICAoV2FybXVwKVxuQ2hhaW4gNDogSXRlcmF0aW9uOiAxMDAwIC8gMjAwMCBbIDUwJV0gIChXYXJtdXApXG5DaGFpbiA0OiBJdGVyYXRpb246IDEwMDEgLyAyMDAwIFsgNTAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gNDogSXRlcmF0aW9uOiAxMjAwIC8gMjAwMCBbIDYwJV0gIChTYW1wbGluZylcbkNoYWluIDQ6IEl0ZXJhdGlvbjogMTQwMCAvIDIwMDAgWyA3MCVdICAoU2FtcGxpbmcpXG5DaGFpbiA0OiBJdGVyYXRpb246IDE2MDAgLyAyMDAwIFsgODAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gNDogSXRlcmF0aW9uOiAxODAwIC8gMjAwMCBbIDkwJV0gIChTYW1wbGluZylcbkNoYWluIDQ6IEl0ZXJhdGlvbjogMjAwMCAvIDIwMDAgWzEwMCVdICAoU2FtcGxpbmcpXG5DaGFpbiA0OiBcbkNoYWluIDQ6ICBFbGFwc2VkIFRpbWU6IDAuMDI3NzEzIHNlY29uZHMgKFdhcm0tdXApXG5DaGFpbiA0OiAgICAgICAgICAgICAgICAwLjAyNTA1NyBzZWNvbmRzIChTYW1wbGluZylcbkNoYWluIDQ6ICAgICAgICAgICAgICAgIDAuMDUyNzcgc2Vjb25kcyAoVG90YWwpXG5DaGFpbiA0OiBcbkluZmVyZW5jZSBmb3IgU3RhbiBtb2RlbDogZ2F1c3NpYW4uXG40IGNoYWlucywgZWFjaCB3aXRoIGl0ZXI9MjAwMDsgd2FybXVwPTEwMDA7IHRoaW49MTsgXG5wb3N0LXdhcm11cCBkcmF3cyBwZXIgY2hhaW49MTAwMCwgdG90YWwgcG9zdC13YXJtdXAgZHJhd3M9NDAwMC5cblxuICAgICAgIG1lYW4gc2VfbWVhbiAgIHNkICAyLjUlICAgMjUlICAgNTAlICAgNzUlIDk3LjUlIG5fZWZmIFJoYXRcbm11ICAgICAxLjAxICAgIDAuMDAgMC4wNiAgMC44OSAgMC45NyAgMS4wMiAgMS4wNSAgMS4xMyAgMjUzNiAgICAxXG5zaWdtYSAgMC40MiAgICAwLjAwIDAuMDQgIDAuMzUgIDAuMzkgIDAuNDIgIDAuNDUgIDAuNTIgIDI4NDggICAgMVxubHBfXyAgMTguMTcgICAgMC4wMyAxLjAxIDE1LjQ2IDE3Ljc1IDE4LjQ3IDE4LjkwIDE5LjE4ICAxNDk4ICAgIDFcblxuU2FtcGxlcyB3ZXJlIGRyYXduIHVzaW5nIE5VVFMoZGlhZ19lKSBhdCBUdWUgU2VwIDI2IDE1OjM5OjQ0IDIwMjMuXG5Gb3IgZWFjaCBwYXJhbWV0ZXIsIG5fZWZmIGlzIGEgY3J1ZGUgbWVhc3VyZSBvZiBlZmZlY3RpdmUgc2FtcGxlIHNpemUsXG5hbmQgUmhhdCBpcyB0aGUgcG90ZW50aWFsIHNjYWxlIHJlZHVjdGlvbiBmYWN0b3Igb24gc3BsaXQgY2hhaW5zIChhdCBcbmNvbnZlcmdlbmNlLCBSaGF0PTEpLlxuIn0= -->
+<pre><code>
+SAMPLING FOR MODEL &#39;gaussian&#39; NOW (CHAIN 1).
+Chain 1: 
+Chain 1: Gradient evaluation took 8.5e-05 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.85 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 1: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 1: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 1: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 1: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 1: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 1: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 1: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 1: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 1: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 0.032464 seconds (Warm-up)
+Chain 1:                0.030145 seconds (Sampling)
+Chain 1:                0.062609 seconds (Total)
+Chain 1: 
+
+SAMPLING FOR MODEL &#39;gaussian&#39; NOW (CHAIN 2).
+Chain 2: 
+Chain 2: Gradient evaluation took 1e-05 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.1 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 2: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 2: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 2: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 2: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 2: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 2: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 2: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 2: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 2: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 0.028136 seconds (Warm-up)
+Chain 2:                0.027934 seconds (Sampling)
+Chain 2:                0.05607 seconds (Total)
+Chain 2: 
+
+SAMPLING FOR MODEL &#39;gaussian&#39; NOW (CHAIN 3).
+Chain 3: 
+Chain 3: Gradient evaluation took 8e-06 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.08 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 3: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 3: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 3: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 3: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 3: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 3: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 3: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 3: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 3: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 0.026929 seconds (Warm-up)
+Chain 3:                0.030718 seconds (Sampling)
+Chain 3:                0.057647 seconds (Total)
+Chain 3: 
+
+SAMPLING FOR MODEL &#39;gaussian&#39; NOW (CHAIN 4).
+Chain 4: 
+Chain 4: Gradient evaluation took 9e-06 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.09 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 4: Iteration:    1 / 2000 [  0%]  (Warmup)
+Chain 4: Iteration:  200 / 2000 [ 10%]  (Warmup)
+Chain 4: Iteration:  400 / 2000 [ 20%]  (Warmup)
+Chain 4: Iteration:  600 / 2000 [ 30%]  (Warmup)
+Chain 4: Iteration:  800 / 2000 [ 40%]  (Warmup)
+Chain 4: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+Chain 4: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+Chain 4: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+Chain 4: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 0.027713 seconds (Warm-up)
+Chain 4:                0.025057 seconds (Sampling)
+Chain 4:                0.05277 seconds (Total)
+Chain 4: 
+Inference for Stan model: gaussian.
+4 chains, each with iter=2000; warmup=1000; thin=1; 
+post-warmup draws per chain=1000, total post-warmup draws=4000.
+
+       mean se_mean   sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
+mu     1.01    0.00 0.06  0.89  0.97  1.02  1.05  1.13  2536    1
+sigma  0.42    0.00 0.04  0.35  0.39  0.42  0.45  0.52  2848    1
+lp__  18.17    0.03 1.01 15.46 17.75 18.47 18.90 19.18  1498    1
+
+Samples were drawn using NUTS(diag_e) at Tue Sep 26 15:39:44 2023.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2FtcGxlcyA8LSBOVVRTKG1vZGVsJEJTX21vZGVsLCBjKDAsMSksIDAuMDAxLCAxMDAwKVxuYGBgIn0= -->
+<pre class="r"><code>samples &lt;- NUTS(model$BS_model, c(0,1), 0.001, 1000)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2FtcGxlcyA8LSBOVVRTKG1vZGVsLCBjKDAsMSksIDAuMDEsIDEwMCwgMSlcbmBgYCJ9 -->
-<pre class="r"><code>samples &lt;- NUTS(model, c(0,1), 0.01, 100, 1)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YT0gZ2V0X21peHR1cmVfZGF0YSgxMDAsIHBpPWMoMC43LCAwLjMpLCBtdT1tYXRyaXgoYygtNSwgMiksIDIsIDEpLCBzaWdtYSA9IHJlcCgxLDIpKVxuYGBgIn0= -->
+<pre class="r"><code>data= get_mixture_data(100, pi=c(0.7, 0.3), mu=matrix(c(-5, 2), 2, 1), sigma = rep(1,2))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9kZWxfbmFtZSA8LSBcImdhdXNzaWFuX21peHR1cmVcIlxuYnJpZGdlc3Rhbl9wYXRoIDwtIFwifi9Eb2N1bWVudHMvYnJpZGdlc3RhblwiXG5cbndyaXRlX2pzb25fZGF0YShkYXRhLCBicmlkZ2VzdGFuX3BhdGgsIG1vZGVsX25hbWUpXG5gYGAifQ== -->
+<pre class="r"><code>model_name &lt;- &quot;gaussian_mixture&quot;
+bridgestan_path &lt;- &quot;~/Documents/bridgestan&quot;
+
+write_json_data(data, bridgestan_path, model_name)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiV3JpdGluZyBkYXRhIHRvIH4vRG9jdW1lbnRzL2JyaWRnZXN0YW4vdGVzdF9tb2RlbHMvZ2F1c3NpYW5fbWl4dHVyZS9nYXVzc2lhbl9taXh0dXJlLmRhdGEuanNvblxuV3JpdGluZyBjb21wbGV0ZWQhXG4ifQ== -->
+<pre><code>Writing data to ~/Documents/bridgestan/test_models/gaussian_mixture/gaussian_mixture.data.json
+Writing completed!</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQpgYGB7cn0Kc291cmNlKCcuL1IvTlVUUy5SJykKc291cmNlKCcuL1IvYnJpZGdlc3Rhbl9oZWxwZXJzLlInKQoKYGBgCgoKCiMgTG9hZGluZyBicmlkZ2VzdGFuIG1vZGVsCgpgYGB7cn0KCmxpYnJhcnkocnN0YW4pCgptb2RlbF9uYW1lIDwtICJnYXVzc2lhbiIKYnJpZGdlc3Rhbl9wYXRoIDwtICJ+L0RvY3VtZW50cy9icmlkZ2VzdGFuIgoKCgptb2RlbCA8LSBnZXRfbW9kZWwoYnJpZGdlc3Rhbl9wYXRoLCBtb2RlbF9uYW1lKQpgYGAKCgpgYGB7cn0Kc2FtcGxlcyA8LSBOVVRTKG1vZGVsLCBjKDAsMSksIDAuMDEsIDEwMCwgMSkKYGBgCgpgYGB7cn0KCmBgYAoKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQpgYGB7cn0KbGlicmFyeShkZXZ0b29scykKbGlicmFyeSh0aWR5dmVyc2UpCmxvYWRfYWxsKCIuIikKc291cmNlKCIuL1IvTlVUUy5SIikKYGBgCmBgYHtyfQpsaWJyYXJ5KHJveHlnZW4yKTsgIyBSZWFkIGluIHRoZSByb3h5Z2VuMiBSIHBhY2thZ2UKcm94eWdlbmlzZSgpOyAKYGBgCgoKCgojIExvYWRpbmcgYnJpZGdlc3RhbiBtb2RlbAoKYGBge3J9CgpsaWJyYXJ5KHJzdGFuKQoKbW9kZWxfbmFtZSA8LSAiZ2F1c3NpYW4iCmJyaWRnZXN0YW5fcGF0aCA8LSAifi9Eb2N1bWVudHMvYnJpZGdlc3RhbiIKCgoKbW9kZWwgPC0gZ2V0X21vZGVsKG1vZGVsX25hbWUpCgpgYGAKCgpgYGB7cn0Kc2FtcGxpbmcobW9kZWwkc3Rhbl9tb2RlbCwgbW9kZWwkZGF0YSkgCmBgYAoKCmBgYHtyfQpzYW1wbGVzIDwtIE5VVFMobW9kZWwkQlNfbW9kZWwsIGMoMCwxKSwgMC4wMDEsIDEwMDApCmBgYAoKCmBgYHtyfQpkYXRhPSBnZXRfbWl4dHVyZV9kYXRhKDEwMCwgcGk9YygwLjcsIDAuMyksIG11PW1hdHJpeChjKC01LCAyKSwgMiwgMSksIHNpZ21hID0gcmVwKDEsMikpCmBgYAoKCmBgYHtyfQptb2RlbF9uYW1lIDwtICJnYXVzc2lhbl9taXh0dXJlIgpicmlkZ2VzdGFuX3BhdGggPC0gIn4vRG9jdW1lbnRzL2JyaWRnZXN0YW4iCgp3cml0ZV9qc29uX2RhdGEoZGF0YSwgYnJpZGdlc3Rhbl9wYXRoLCBtb2RlbF9uYW1lKQpgYGAKCgoK</div>
 
 
 

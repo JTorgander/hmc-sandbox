@@ -2,18 +2,18 @@
 % Please edit documentation in R/bridgestan_helpers.R
 \name{get_model}
 \alias{get_model}
-\title{Bridgestan model getter}
+\title{Stan Model getter}
 \usage{
-get_model(bridgestan_path, model_name, data = TRUE)
+get_model(model_name, data = TRUE, bridgestan_path = BS_PATH)
 }
 \arguments{
-\item{bridgestan_path}{Path to compiled bridgestan models and data}
-
 \item{model_name}{Name of bridgestan model to be imported}
 
 \item{data}{Boolean indicating if the corresponding data.json file should be included.}
+
+\item{bridgestan_path}{Path to compiled bridgestan models and data}
 }
 \description{
-Fetches (compiled) bridgestan model and returns the corresponding
-StanModel object
+Fetches (compiled) bridgestan and regular stan model and returns the corresponding
+StanModel objects
 }
