@@ -1780,176 +1780,143 @@ roxygenise(); </code></pre>
 <h1>Loading bridgestan model</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5saWJyYXJ5KHJzdGFuKVxuXG5tb2RlbF9uYW1lIDwtIFwiZ2F1c3NpYW5cIlxuYnJpZGdlc3Rhbl9wYXRoIDwtIFwifi9Eb2N1bWVudHMvYnJpZGdlc3RhblwiXG5cblxuXG5tb2RlbCA8LSBnZXRfbW9kZWwobW9kZWxfbmFtZSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5cblxubW9kZWxfbmFtZSA8LSBcImdhdXNzaWFuX21peHR1cmVcIlxuYnJpZGdlc3Rhbl9wYXRoIDwtIFwifi9Eb2N1bWVudHMvYnJpZGdlc3RhblwiXG5cblxuXG5tb2RlbCA8LSBnZXRfbW9kZWwobW9kZWxfbmFtZSwgMTIzNClcbmBgYCJ9 -->
 <pre class="r"><code>
-library(rstan)
 
-model_name &lt;- &quot;gaussian&quot;
+
+model_name &lt;- &quot;gaussian_mixture&quot;
 bridgestan_path &lt;- &quot;~/Documents/bridgestan&quot;
 
 
 
-model &lt;- get_model(model_name)</code></pre>
+model &lt;- get_model(model_name, 1234)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoicmVjb21waWxpbmcgdG8gYXZvaWQgY3Jhc2hpbmcgUiBzZXNzaW9uXG4ifQ== -->
-<pre><code>recompiling to avoid crashing R session</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gdG9vbHM6OmZpbGVfcGF0aF9hc19hYnNvbHV0ZShsaWIpIDogXG4gIGZpbGUgJ34vRG9jdW1lbnRzL2JyaWRnZXN0YW4vdGVzdF9tb2RlbHMvZ2F1c3NpYW5fbWl4dHVyZS9nYXVzc2lhbl9taXh0dXJlX21vZGVsLnNvJyBkb2VzIG5vdCBleGlzdFxuIn0= -->
+<pre><code>Error in tools::file_path_as_absolute(lib) : 
+  file &#39;~/Documents/bridgestan/test_models/gaussian_mixture/gaussian_mixture_model.so&#39; does not exist</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2FtcGxpbmcobW9kZWwkc3Rhbl9tb2RlbCwgbW9kZWwkZGF0YSkgXG5gYGAifQ== -->
-<pre class="r"><code>sampling(model$stan_model, model$data) </code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29tcGlsZV9icyhtb2RlbF9uYW1lKVxuYGBgIn0= -->
+<pre class="r"><code>compile_bs(model_name)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5TQU1QTElORyBGT1IgTU9ERUwgJ2dhdXNzaWFuJyBOT1cgKENIQUlOIDEpLlxuQ2hhaW4gMTogXG5DaGFpbiAxOiBHcmFkaWVudCBldmFsdWF0aW9uIHRvb2sgOC41ZS0wNSBzZWNvbmRzXG5DaGFpbiAxOiAxMDAwIHRyYW5zaXRpb25zIHVzaW5nIDEwIGxlYXBmcm9nIHN0ZXBzIHBlciB0cmFuc2l0aW9uIHdvdWxkIHRha2UgMC44NSBzZWNvbmRzLlxuQ2hhaW4gMTogQWRqdXN0IHlvdXIgZXhwZWN0YXRpb25zIGFjY29yZGluZ2x5IVxuQ2hhaW4gMTogXG5DaGFpbiAxOiBcbkNoYWluIDE6IEl0ZXJhdGlvbjogICAgMSAvIDIwMDAgWyAgMCVdICAoV2FybXVwKVxuQ2hhaW4gMTogSXRlcmF0aW9uOiAgMjAwIC8gMjAwMCBbIDEwJV0gIChXYXJtdXApXG5DaGFpbiAxOiBJdGVyYXRpb246ICA0MDAgLyAyMDAwIFsgMjAlXSAgKFdhcm11cClcbkNoYWluIDE6IEl0ZXJhdGlvbjogIDYwMCAvIDIwMDAgWyAzMCVdICAoV2FybXVwKVxuQ2hhaW4gMTogSXRlcmF0aW9uOiAgODAwIC8gMjAwMCBbIDQwJV0gIChXYXJtdXApXG5DaGFpbiAxOiBJdGVyYXRpb246IDEwMDAgLyAyMDAwIFsgNTAlXSAgKFdhcm11cClcbkNoYWluIDE6IEl0ZXJhdGlvbjogMTAwMSAvIDIwMDAgWyA1MCVdICAoU2FtcGxpbmcpXG5DaGFpbiAxOiBJdGVyYXRpb246IDEyMDAgLyAyMDAwIFsgNjAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gMTogSXRlcmF0aW9uOiAxNDAwIC8gMjAwMCBbIDcwJV0gIChTYW1wbGluZylcbkNoYWluIDE6IEl0ZXJhdGlvbjogMTYwMCAvIDIwMDAgWyA4MCVdICAoU2FtcGxpbmcpXG5DaGFpbiAxOiBJdGVyYXRpb246IDE4MDAgLyAyMDAwIFsgOTAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gMTogSXRlcmF0aW9uOiAyMDAwIC8gMjAwMCBbMTAwJV0gIChTYW1wbGluZylcbkNoYWluIDE6IFxuQ2hhaW4gMTogIEVsYXBzZWQgVGltZTogMC4wMzI0NjQgc2Vjb25kcyAoV2FybS11cClcbkNoYWluIDE6ICAgICAgICAgICAgICAgIDAuMDMwMTQ1IHNlY29uZHMgKFNhbXBsaW5nKVxuQ2hhaW4gMTogICAgICAgICAgICAgICAgMC4wNjI2MDkgc2Vjb25kcyAoVG90YWwpXG5DaGFpbiAxOiBcblxuU0FNUExJTkcgRk9SIE1PREVMICdnYXVzc2lhbicgTk9XIChDSEFJTiAyKS5cbkNoYWluIDI6IFxuQ2hhaW4gMjogR3JhZGllbnQgZXZhbHVhdGlvbiB0b29rIDFlLTA1IHNlY29uZHNcbkNoYWluIDI6IDEwMDAgdHJhbnNpdGlvbnMgdXNpbmcgMTAgbGVhcGZyb2cgc3RlcHMgcGVyIHRyYW5zaXRpb24gd291bGQgdGFrZSAwLjEgc2Vjb25kcy5cbkNoYWluIDI6IEFkanVzdCB5b3VyIGV4cGVjdGF0aW9ucyBhY2NvcmRpbmdseSFcbkNoYWluIDI6IFxuQ2hhaW4gMjogXG5DaGFpbiAyOiBJdGVyYXRpb246ICAgIDEgLyAyMDAwIFsgIDAlXSAgKFdhcm11cClcbkNoYWluIDI6IEl0ZXJhdGlvbjogIDIwMCAvIDIwMDAgWyAxMCVdICAoV2FybXVwKVxuQ2hhaW4gMjogSXRlcmF0aW9uOiAgNDAwIC8gMjAwMCBbIDIwJV0gIChXYXJtdXApXG5DaGFpbiAyOiBJdGVyYXRpb246ICA2MDAgLyAyMDAwIFsgMzAlXSAgKFdhcm11cClcbkNoYWluIDI6IEl0ZXJhdGlvbjogIDgwMCAvIDIwMDAgWyA0MCVdICAoV2FybXVwKVxuQ2hhaW4gMjogSXRlcmF0aW9uOiAxMDAwIC8gMjAwMCBbIDUwJV0gIChXYXJtdXApXG5DaGFpbiAyOiBJdGVyYXRpb246IDEwMDEgLyAyMDAwIFsgNTAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gMjogSXRlcmF0aW9uOiAxMjAwIC8gMjAwMCBbIDYwJV0gIChTYW1wbGluZylcbkNoYWluIDI6IEl0ZXJhdGlvbjogMTQwMCAvIDIwMDAgWyA3MCVdICAoU2FtcGxpbmcpXG5DaGFpbiAyOiBJdGVyYXRpb246IDE2MDAgLyAyMDAwIFsgODAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gMjogSXRlcmF0aW9uOiAxODAwIC8gMjAwMCBbIDkwJV0gIChTYW1wbGluZylcbkNoYWluIDI6IEl0ZXJhdGlvbjogMjAwMCAvIDIwMDAgWzEwMCVdICAoU2FtcGxpbmcpXG5DaGFpbiAyOiBcbkNoYWluIDI6ICBFbGFwc2VkIFRpbWU6IDAuMDI4MTM2IHNlY29uZHMgKFdhcm0tdXApXG5DaGFpbiAyOiAgICAgICAgICAgICAgICAwLjAyNzkzNCBzZWNvbmRzIChTYW1wbGluZylcbkNoYWluIDI6ICAgICAgICAgICAgICAgIDAuMDU2MDcgc2Vjb25kcyAoVG90YWwpXG5DaGFpbiAyOiBcblxuU0FNUExJTkcgRk9SIE1PREVMICdnYXVzc2lhbicgTk9XIChDSEFJTiAzKS5cbkNoYWluIDM6IFxuQ2hhaW4gMzogR3JhZGllbnQgZXZhbHVhdGlvbiB0b29rIDhlLTA2IHNlY29uZHNcbkNoYWluIDM6IDEwMDAgdHJhbnNpdGlvbnMgdXNpbmcgMTAgbGVhcGZyb2cgc3RlcHMgcGVyIHRyYW5zaXRpb24gd291bGQgdGFrZSAwLjA4IHNlY29uZHMuXG5DaGFpbiAzOiBBZGp1c3QgeW91ciBleHBlY3RhdGlvbnMgYWNjb3JkaW5nbHkhXG5DaGFpbiAzOiBcbkNoYWluIDM6IFxuQ2hhaW4gMzogSXRlcmF0aW9uOiAgICAxIC8gMjAwMCBbICAwJV0gIChXYXJtdXApXG5DaGFpbiAzOiBJdGVyYXRpb246ICAyMDAgLyAyMDAwIFsgMTAlXSAgKFdhcm11cClcbkNoYWluIDM6IEl0ZXJhdGlvbjogIDQwMCAvIDIwMDAgWyAyMCVdICAoV2FybXVwKVxuQ2hhaW4gMzogSXRlcmF0aW9uOiAgNjAwIC8gMjAwMCBbIDMwJV0gIChXYXJtdXApXG5DaGFpbiAzOiBJdGVyYXRpb246ICA4MDAgLyAyMDAwIFsgNDAlXSAgKFdhcm11cClcbkNoYWluIDM6IEl0ZXJhdGlvbjogMTAwMCAvIDIwMDAgWyA1MCVdICAoV2FybXVwKVxuQ2hhaW4gMzogSXRlcmF0aW9uOiAxMDAxIC8gMjAwMCBbIDUwJV0gIChTYW1wbGluZylcbkNoYWluIDM6IEl0ZXJhdGlvbjogMTIwMCAvIDIwMDAgWyA2MCVdICAoU2FtcGxpbmcpXG5DaGFpbiAzOiBJdGVyYXRpb246IDE0MDAgLyAyMDAwIFsgNzAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gMzogSXRlcmF0aW9uOiAxNjAwIC8gMjAwMCBbIDgwJV0gIChTYW1wbGluZylcbkNoYWluIDM6IEl0ZXJhdGlvbjogMTgwMCAvIDIwMDAgWyA5MCVdICAoU2FtcGxpbmcpXG5DaGFpbiAzOiBJdGVyYXRpb246IDIwMDAgLyAyMDAwIFsxMDAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gMzogXG5DaGFpbiAzOiAgRWxhcHNlZCBUaW1lOiAwLjAyNjkyOSBzZWNvbmRzIChXYXJtLXVwKVxuQ2hhaW4gMzogICAgICAgICAgICAgICAgMC4wMzA3MTggc2Vjb25kcyAoU2FtcGxpbmcpXG5DaGFpbiAzOiAgICAgICAgICAgICAgICAwLjA1NzY0NyBzZWNvbmRzIChUb3RhbClcbkNoYWluIDM6IFxuXG5TQU1QTElORyBGT1IgTU9ERUwgJ2dhdXNzaWFuJyBOT1cgKENIQUlOIDQpLlxuQ2hhaW4gNDogXG5DaGFpbiA0OiBHcmFkaWVudCBldmFsdWF0aW9uIHRvb2sgOWUtMDYgc2Vjb25kc1xuQ2hhaW4gNDogMTAwMCB0cmFuc2l0aW9ucyB1c2luZyAxMCBsZWFwZnJvZyBzdGVwcyBwZXIgdHJhbnNpdGlvbiB3b3VsZCB0YWtlIDAuMDkgc2Vjb25kcy5cbkNoYWluIDQ6IEFkanVzdCB5b3VyIGV4cGVjdGF0aW9ucyBhY2NvcmRpbmdseSFcbkNoYWluIDQ6IFxuQ2hhaW4gNDogXG5DaGFpbiA0OiBJdGVyYXRpb246ICAgIDEgLyAyMDAwIFsgIDAlXSAgKFdhcm11cClcbkNoYWluIDQ6IEl0ZXJhdGlvbjogIDIwMCAvIDIwMDAgWyAxMCVdICAoV2FybXVwKVxuQ2hhaW4gNDogSXRlcmF0aW9uOiAgNDAwIC8gMjAwMCBbIDIwJV0gIChXYXJtdXApXG5DaGFpbiA0OiBJdGVyYXRpb246ICA2MDAgLyAyMDAwIFsgMzAlXSAgKFdhcm11cClcbkNoYWluIDQ6IEl0ZXJhdGlvbjogIDgwMCAvIDIwMDAgWyA0MCVdICAoV2FybXVwKVxuQ2hhaW4gNDogSXRlcmF0aW9uOiAxMDAwIC8gMjAwMCBbIDUwJV0gIChXYXJtdXApXG5DaGFpbiA0OiBJdGVyYXRpb246IDEwMDEgLyAyMDAwIFsgNTAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gNDogSXRlcmF0aW9uOiAxMjAwIC8gMjAwMCBbIDYwJV0gIChTYW1wbGluZylcbkNoYWluIDQ6IEl0ZXJhdGlvbjogMTQwMCAvIDIwMDAgWyA3MCVdICAoU2FtcGxpbmcpXG5DaGFpbiA0OiBJdGVyYXRpb246IDE2MDAgLyAyMDAwIFsgODAlXSAgKFNhbXBsaW5nKVxuQ2hhaW4gNDogSXRlcmF0aW9uOiAxODAwIC8gMjAwMCBbIDkwJV0gIChTYW1wbGluZylcbkNoYWluIDQ6IEl0ZXJhdGlvbjogMjAwMCAvIDIwMDAgWzEwMCVdICAoU2FtcGxpbmcpXG5DaGFpbiA0OiBcbkNoYWluIDQ6ICBFbGFwc2VkIFRpbWU6IDAuMDI3NzEzIHNlY29uZHMgKFdhcm0tdXApXG5DaGFpbiA0OiAgICAgICAgICAgICAgICAwLjAyNTA1NyBzZWNvbmRzIChTYW1wbGluZylcbkNoYWluIDQ6ICAgICAgICAgICAgICAgIDAuMDUyNzcgc2Vjb25kcyAoVG90YWwpXG5DaGFpbiA0OiBcbkluZmVyZW5jZSBmb3IgU3RhbiBtb2RlbDogZ2F1c3NpYW4uXG40IGNoYWlucywgZWFjaCB3aXRoIGl0ZXI9MjAwMDsgd2FybXVwPTEwMDA7IHRoaW49MTsgXG5wb3N0LXdhcm11cCBkcmF3cyBwZXIgY2hhaW49MTAwMCwgdG90YWwgcG9zdC13YXJtdXAgZHJhd3M9NDAwMC5cblxuICAgICAgIG1lYW4gc2VfbWVhbiAgIHNkICAyLjUlICAgMjUlICAgNTAlICAgNzUlIDk3LjUlIG5fZWZmIFJoYXRcbm11ICAgICAxLjAxICAgIDAuMDAgMC4wNiAgMC44OSAgMC45NyAgMS4wMiAgMS4wNSAgMS4xMyAgMjUzNiAgICAxXG5zaWdtYSAgMC40MiAgICAwLjAwIDAuMDQgIDAuMzUgIDAuMzkgIDAuNDIgIDAuNDUgIDAuNTIgIDI4NDggICAgMVxubHBfXyAgMTguMTcgICAgMC4wMyAxLjAxIDE1LjQ2IDE3Ljc1IDE4LjQ3IDE4LjkwIDE5LjE4ICAxNDk4ICAgIDFcblxuU2FtcGxlcyB3ZXJlIGRyYXduIHVzaW5nIE5VVFMoZGlhZ19lKSBhdCBUdWUgU2VwIDI2IDE1OjM5OjQ0IDIwMjMuXG5Gb3IgZWFjaCBwYXJhbWV0ZXIsIG5fZWZmIGlzIGEgY3J1ZGUgbWVhc3VyZSBvZiBlZmZlY3RpdmUgc2FtcGxlIHNpemUsXG5hbmQgUmhhdCBpcyB0aGUgcG90ZW50aWFsIHNjYWxlIHJlZHVjdGlvbiBmYWN0b3Igb24gc3BsaXQgY2hhaW5zIChhdCBcbmNvbnZlcmdlbmNlLCBSaGF0PTEpLlxuIn0= -->
-<pre><code>
-SAMPLING FOR MODEL &#39;gaussian&#39; NOW (CHAIN 1).
-Chain 1: 
-Chain 1: Gradient evaluation took 8.5e-05 seconds
-Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.85 seconds.
-Chain 1: Adjust your expectations accordingly!
-Chain 1: 
-Chain 1: 
-Chain 1: Iteration:    1 / 2000 [  0%]  (Warmup)
-Chain 1: Iteration:  200 / 2000 [ 10%]  (Warmup)
-Chain 1: Iteration:  400 / 2000 [ 20%]  (Warmup)
-Chain 1: Iteration:  600 / 2000 [ 30%]  (Warmup)
-Chain 1: Iteration:  800 / 2000 [ 40%]  (Warmup)
-Chain 1: Iteration: 1000 / 2000 [ 50%]  (Warmup)
-Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
-Chain 1: Iteration: 1200 / 2000 [ 60%]  (Sampling)
-Chain 1: Iteration: 1400 / 2000 [ 70%]  (Sampling)
-Chain 1: Iteration: 1600 / 2000 [ 80%]  (Sampling)
-Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
-Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
-Chain 1: 
-Chain 1:  Elapsed Time: 0.032464 seconds (Warm-up)
-Chain 1:                0.030145 seconds (Sampling)
-Chain 1:                0.062609 seconds (Total)
-Chain 1: 
-
-SAMPLING FOR MODEL &#39;gaussian&#39; NOW (CHAIN 2).
-Chain 2: 
-Chain 2: Gradient evaluation took 1e-05 seconds
-Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.1 seconds.
-Chain 2: Adjust your expectations accordingly!
-Chain 2: 
-Chain 2: 
-Chain 2: Iteration:    1 / 2000 [  0%]  (Warmup)
-Chain 2: Iteration:  200 / 2000 [ 10%]  (Warmup)
-Chain 2: Iteration:  400 / 2000 [ 20%]  (Warmup)
-Chain 2: Iteration:  600 / 2000 [ 30%]  (Warmup)
-Chain 2: Iteration:  800 / 2000 [ 40%]  (Warmup)
-Chain 2: Iteration: 1000 / 2000 [ 50%]  (Warmup)
-Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
-Chain 2: Iteration: 1200 / 2000 [ 60%]  (Sampling)
-Chain 2: Iteration: 1400 / 2000 [ 70%]  (Sampling)
-Chain 2: Iteration: 1600 / 2000 [ 80%]  (Sampling)
-Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
-Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
-Chain 2: 
-Chain 2:  Elapsed Time: 0.028136 seconds (Warm-up)
-Chain 2:                0.027934 seconds (Sampling)
-Chain 2:                0.05607 seconds (Total)
-Chain 2: 
-
-SAMPLING FOR MODEL &#39;gaussian&#39; NOW (CHAIN 3).
-Chain 3: 
-Chain 3: Gradient evaluation took 8e-06 seconds
-Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.08 seconds.
-Chain 3: Adjust your expectations accordingly!
-Chain 3: 
-Chain 3: 
-Chain 3: Iteration:    1 / 2000 [  0%]  (Warmup)
-Chain 3: Iteration:  200 / 2000 [ 10%]  (Warmup)
-Chain 3: Iteration:  400 / 2000 [ 20%]  (Warmup)
-Chain 3: Iteration:  600 / 2000 [ 30%]  (Warmup)
-Chain 3: Iteration:  800 / 2000 [ 40%]  (Warmup)
-Chain 3: Iteration: 1000 / 2000 [ 50%]  (Warmup)
-Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
-Chain 3: Iteration: 1200 / 2000 [ 60%]  (Sampling)
-Chain 3: Iteration: 1400 / 2000 [ 70%]  (Sampling)
-Chain 3: Iteration: 1600 / 2000 [ 80%]  (Sampling)
-Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
-Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
-Chain 3: 
-Chain 3:  Elapsed Time: 0.026929 seconds (Warm-up)
-Chain 3:                0.030718 seconds (Sampling)
-Chain 3:                0.057647 seconds (Total)
-Chain 3: 
-
-SAMPLING FOR MODEL &#39;gaussian&#39; NOW (CHAIN 4).
-Chain 4: 
-Chain 4: Gradient evaluation took 9e-06 seconds
-Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.09 seconds.
-Chain 4: Adjust your expectations accordingly!
-Chain 4: 
-Chain 4: 
-Chain 4: Iteration:    1 / 2000 [  0%]  (Warmup)
-Chain 4: Iteration:  200 / 2000 [ 10%]  (Warmup)
-Chain 4: Iteration:  400 / 2000 [ 20%]  (Warmup)
-Chain 4: Iteration:  600 / 2000 [ 30%]  (Warmup)
-Chain 4: Iteration:  800 / 2000 [ 40%]  (Warmup)
-Chain 4: Iteration: 1000 / 2000 [ 50%]  (Warmup)
-Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
-Chain 4: Iteration: 1200 / 2000 [ 60%]  (Sampling)
-Chain 4: Iteration: 1400 / 2000 [ 70%]  (Sampling)
-Chain 4: Iteration: 1600 / 2000 [ 80%]  (Sampling)
-Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
-Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
-Chain 4: 
-Chain 4:  Elapsed Time: 0.027713 seconds (Warm-up)
-Chain 4:                0.025057 seconds (Sampling)
-Chain 4:                0.05277 seconds (Total)
-Chain 4: 
-Inference for Stan model: gaussian.
-4 chains, each with iter=2000; warmup=1000; thin=1; 
-post-warmup draws per chain=1000, total post-warmup draws=4000.
-
-       mean se_mean   sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-mu     1.01    0.00 0.06  0.89  0.97  1.02  1.05  1.13  2536    1
-sigma  0.42    0.00 0.04  0.35  0.39  0.42  0.45  0.52  2848    1
-lp__  18.17    0.03 1.01 15.46 17.75 18.47 18.90 19.18  1498    1
-
-Samples were drawn using NUTS(diag_e) at Tue Sep 26 15:39:44 2023.
-For each parameter, n_eff is a crude measure of effective sample size,
-and Rhat is the potential scale reduction factor on split chains (at 
-convergence, Rhat=1).</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiREVTQ1JJUFRJT05cbk5BTUVTUEFDRVxuUlxuUkVBRE1FLm1kXG5obWMtc2FuZGJveC5ScHJvalxuaG1jX3NhbmRib3guUm1kXG5obWNfc2FuZGJveC5uYi5odG1sXG5tYW5cbiJ9 -->
+<pre><code>DESCRIPTION
+NAMESPACE
+R
+README.md
+hmc-sandbox.Rproj
+hmc_sandbox.Rmd
+hmc_sandbox.nb.html
+man</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoibWFrZTogKioqIE5vIHJ1bGUgdG8gbWFrZSB0YXJnZXQgYHRlc3RfbW9kZWxzL2dhdXNzaWFuX21peHR1cmUvZ2F1c3NpYW5fbWl4dHVyZV9tb2RlbC5zbycuICBTdG9wLlxuIn0= -->
+<pre><code>make: *** No rule to make target `test_models/gaussian_mixture/gaussian_mixture_model.so&#39;.  Stop.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY3VyX2RpciA8LSBnZXR3ZCgpXG5jdXJfZGlyXG5gYGAifQ== -->
+<pre class="r"><code>cur_dir &lt;- getwd()
+cur_dir</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiL1VzZXJzL2pha29idG9yZ2FuZGVyL1Byb2plY3QvaG1jLXNhbmRib3hcIlxuIn0= -->
+<pre><code>[1] &quot;/Users/jakobtorgander/Project/hmc-sandbox&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2FtcGxlcyA8LSBOVVRTKG1vZGVsJEJTX21vZGVsLCBjKDAsMSksIDAuMDAxLCAxMDAwKVxuYGBgIn0= -->
-<pre class="r"><code>samples &lt;- NUTS(model$BS_model, c(0,1), 0.001, 1000)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4gIGNvbXBpbGVfcGF0aCA8LSBwYXN0ZTAoXCIuL3Rlc3RfbW9kZWxzL1wiLCBtb2RlbF9uYW1lLCBcIi9cIiwgbW9kZWxfbmFtZSwgXCJfbW9kZWwuc29cIilcbnNldHdkKEJTX1BBVEgpXG5gYGAifQ== -->
+<pre class="r"><code>
+  compile_path &lt;- paste0(&quot;./test_models/&quot;, model_name, &quot;/&quot;, model_name, &quot;_model.so&quot;)
+setwd(BS_PATH)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZzogVGhlIHdvcmtpbmcgZGlyZWN0b3J5IHdhcyBjaGFuZ2VkIHRvIC9Vc2Vycy9qYWtvYnRvcmdhbmRlci9Eb2N1bWVudHMvYnJpZGdlc3RhbiBpbnNpZGUgYSBub3RlYm9vayBjaHVuay4gVGhlIHdvcmtpbmcgZGlyZWN0b3J5IHdpbGwgYmUgcmVzZXQgd2hlbiB0aGUgY2h1bmsgaXMgZmluaXNoZWQgcnVubmluZy4gVXNlIHRoZSBrbml0ciByb290LmRpciBvcHRpb24gaW4gdGhlIHNldHVwIGNodW5rIHRvIGNoYW5nZSB0aGUgd29ya2luZyBkaXJlY3RvcnkgZm9yIG5vdGVib29rIGNodW5rcy5cbiJ9 -->
+<pre><code>Warning: The working directory was changed to /Users/jakobtorgander/Documents/bridgestan inside a notebook chunk. The working directory will be reset when the chunk is finished running. Use the knitr root.dir option in the setup chunk to change the working directory for notebook chunks.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2V0d2QoKVxuYGBgIn0= -->
+<pre class="r"><code>getwd()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiL1VzZXJzL2pha29idG9yZ2FuZGVyL0RvY3VtZW50cy9icmlkZ2VzdGFuXCJcbiJ9 -->
+<pre><code>[1] &quot;/Users/jakobtorgander/Documents/bridgestan&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3lzdGVtKHBhc3RlMChcIm1ha2UgXCIsIGNvbXBpbGVfcGF0aCkpXG5gYGAifQ== -->
+<pre class="r"><code>system(paste0(&quot;make &quot;, compile_path))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoibWFrZTogYHRlc3RfbW9kZWxzL2dhdXNzaWFuX21peHR1cmUvZ2F1c3NpYW5fbWl4dHVyZV9tb2RlbC5zbycgaXMgdXAgdG8gZGF0ZS5cbiJ9 -->
+<pre><code>make: `test_models/gaussian_mixture/gaussian_mixture_model.so&#39; is up to date.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoY3VyX2RpcilcbiAgZ2V0d2QoKVxuYGBgIn0= -->
+<pre class="r"><code>setwd(cur_dir)
+  getwd()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiL1VzZXJzL2pha29idG9yZ2FuZGVyL1Byb2plY3QvaG1jLXNhbmRib3hcIlxuIn0= -->
+<pre><code>[1] &quot;/Users/jakobtorgander/Project/hmc-sandbox&quot;</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YT0gZ2V0X21peHR1cmVfZGF0YSgxMDAsIHBpPWMoMC43LCAwLjMpLCBtdT1tYXRyaXgoYygtNSwgMiksIDIsIDEpLCBzaWdtYSA9IHJlcCgxLDIpKVxuYGBgIn0= -->
-<pre class="r"><code>data= get_mixture_data(100, pi=c(0.7, 0.3), mu=matrix(c(-5, 2), 2, 1), sigma = rep(1,2))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2FtcGxlcyA8LSBOVVRTKG1vZGVsJEJTX21vZGVsLCBjKDEsMSwxKSwgMC4wMDAxLCAxMClcbmBgYCJ9 -->
+<pre class="r"><code>samples &lt;- NUTS(model$BS_model, c(1,1,1), 0.0001, 10)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gaWYgKG5vdF9zdG9wXzEpIHsgOiBtaXNzaW5nIHZhbHVlIHdoZXJlIFRSVUUvRkFMU0UgbmVlZGVkXG4ifQ== -->
+<pre><code>Error in if (not_stop_1) { : missing value where TRUE/FALSE needed</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYnMgPC0gbW9kZWwkQlNfbW9kZWxcbnQgPC0gYygtMC40NTE3MzUzNywgLTAuNTU4Njg1ODcsIC0wLjAyMDYxNzM5KVxuYnMkbG9nX2RlbnNpdHlfZ3JhZGllbnQodClcbmBgYCJ9 -->
+<pre class="r"><code>bs &lt;- model$BS_model
+t &lt;- c(-0.45173537, -0.55868587, -0.02061739)
+bs$log_density_gradient(t)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJHZhbFxuWzFdIC00LjcxNTI2MVxuXG4kZ3JhZGllbnRcblsxXSAwLjcyNTExODYgMC40Mzk4ODY0ICAgICAgIE5hTlxuIn0= -->
+<pre><code>$val
+[1] -4.715261
+
+$gradient
+[1] 0.7251186 0.4398864       NaN</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9kZWxfbmFtZSA8LSBcImdhdXNzaWFuX21peHR1cmVcIlxuYnJpZGdlc3Rhbl9wYXRoIDwtIFwifi9Eb2N1bWVudHMvYnJpZGdlc3RhblwiXG5cbndyaXRlX2pzb25fZGF0YShkYXRhLCBicmlkZ2VzdGFuX3BhdGgsIG1vZGVsX25hbWUpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTiA8LSAxMDBcbmRhdGE9IGdldF9taXh0dXJlX2RhdGEoTiwgcGk9YygwLjcsIDAuMyksIG11PW1hdHJpeChjKC01LCAyKSwgMiwgMSksIHNpZ21hID0gMSlcblxuIHRvSlNPTihsaXN0KGRhdGE9ZGF0YSRkYXRhLCBLID0gMiwgTiA9IE4pLCBhdXRvX3VuYm94ID0gVFJVRSlcbmBgYCJ9 -->
+<pre class="r"><code>N &lt;- 100
+data= get_mixture_data(N, pi=c(0.7, 0.3), mu=matrix(c(-5, 2), 2, 1), sigma = 1)
+
+ toJSON(list(data=data$data, K = 2, N = N), auto_unbox = TRUE)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoie1wiZGF0YVwiOlstNS44MTE5LDAuNTI5MywtNS4yODI5LC00LjU0MzcsLTUuMDk2NiwtNi4xNjMsMi4zODYxLC01LjIzNTQsLTUuMzk3LDAuNjg2NywtNi41MTY1LDEuMzk1OCwxLjIxODUsLTQuMTQ0MywtNi4wMjUsLTQuODEyMSwtNC44OTI1LC0zLjI5NTksLTQuMzUzNCwtNS43MjE1LC0zLjE2OTQsLTQuMzkwNCwxLjMxNTEsLTUuNDEwMiwyLjk3MzgsLTYuNTU0NywtNS41MjczLC01LjEwMDgsLTMuMjI1OCwtNS4yNTg3LDEuMjI1NSwtNi4xOTc3LDEuOTk2NiwtNS4zMzYxLC02LjY1OTMsLTAuNzIxNywtNC41NjY1LC00LjU2MzEsMi41OTAxLC00LjU1NTYsMy44OTIyLC01LjA2NDEsLTQuMTg4OSwtNC44OTgzLDEuODYwNCwtNi41MTExLC02LjUxNTMsLTUuOTEyNSwyLjIwOTIsLTUuMDI5LC00LjY1NDcsMS4zMzk4LDEuMzc3NSwtNC43MDk3LC02LjA0NzYsLTMuMDU2OSwtNS4yNTQ3LC01LjQxMjEsLTQuMjYyNCwtNC41NDI3LC00Ljk2NTksLTQuOTYzMywyLjgxMjEsMS41MDIyLC00LjU4OTUsLTYuODc2MywtMS43NTMxLC01LjE4OTgsMC40NTM4LC00Ljk5OTksLTUuNTEyNywxLjgzNTYsLTYuMDUwNSwtNC43NTQ0LC01LjI1OTcsLTYuMDI5NywtNS4zMzUyLC0zLjkyNDgsLTQuMjU1LC0zLjI5MjMsLTMuNjIxOSwtNS4yNDgzLC00LjE2OTUsLTUuMTkzLC00LjgzNDksMC4xOTk0LC01LjE5MDgsMi41MzU5LC01LjQ4MjcsLTMuNjI3MiwyLjg5MTcsLTMuODUzNCwxLjYyMTgsMi42MTg4LC00LjkxOCwtNS40MDMzLC01LjE0ODMsMS4wMzA1LC03LjAyMDQsLTQuNDk4OF0sXCJLXCI6MixcIk5cIjoxMDB9IFxuIn0= -->
+<pre><code>{&quot;data&quot;:[-5.8119,0.5293,-5.2829,-4.5437,-5.0966,-6.163,2.3861,-5.2354,-5.397,0.6867,-6.5165,1.3958,1.2185,-4.1443,-6.025,-4.8121,-4.8925,-3.2959,-4.3534,-5.7215,-3.1694,-4.3904,1.3151,-5.4102,2.9738,-6.5547,-5.5273,-5.1008,-3.2258,-5.2587,1.2255,-6.1977,1.9966,-5.3361,-6.6593,-0.7217,-4.5665,-4.5631,2.5901,-4.5556,3.8922,-5.0641,-4.1889,-4.8983,1.8604,-6.5111,-6.5153,-5.9125,2.2092,-5.029,-4.6547,1.3398,1.3775,-4.7097,-6.0476,-3.0569,-5.2547,-5.4121,-4.2624,-4.5427,-4.9659,-4.9633,2.8121,1.5022,-4.5895,-6.8763,-1.7531,-5.1898,0.4538,-4.9999,-5.5127,1.8356,-6.0505,-4.7544,-5.2597,-6.0297,-5.3352,-3.9248,-4.255,-3.2923,-3.6219,-5.2483,-4.1695,-5.193,-4.8349,0.1994,-5.1908,2.5359,-5.4827,-3.6272,2.8917,-3.8534,1.6218,2.6188,-4.918,-5.4033,-5.1483,1.0305,-7.0204,-4.4988],&quot;K&quot;:2,&quot;N&quot;:100} </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9kZWxfbmFtZSA8LSBcImdhdXNzaWFuX21peHR1cmVcIlxuYnJpZGdlc3Rhbl9wYXRoIDwtIFwifi9Eb2N1bWVudHMvYnJpZGdlc3RhblwiXG5cbndyaXRlX2pzb25fZGF0YShsaXN0KGRhdGE9ZGF0YSRkYXRhLCBLID0gMiwgTiA9IE4pLCBtb2RlbF9uYW1lKVxuYGBgIn0= -->
 <pre class="r"><code>model_name &lt;- &quot;gaussian_mixture&quot;
 bridgestan_path &lt;- &quot;~/Documents/bridgestan&quot;
 
-write_json_data(data, bridgestan_path, model_name)</code></pre>
+write_json_data(list(data=data$data, K = 2, N = N), model_name)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiV3JpdGluZyBkYXRhIHRvIH4vRG9jdW1lbnRzL2JyaWRnZXN0YW4vdGVzdF9tb2RlbHMvZ2F1c3NpYW5fbWl4dHVyZS9nYXVzc2lhbl9taXh0dXJlLmRhdGEuanNvblxuV3JpdGluZyBjb21wbGV0ZWQhXG4ifQ== -->
-<pre><code>Writing data to ~/Documents/bridgestan/test_models/gaussian_mixture/gaussian_mixture.data.json
-Writing completed!</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiV3JpdGluZyBkYXRhIHRvIH4vRG9jdW1lbnRzL2JyaWRnZXN0YW4vdGVzdF9tb2RlbHMvZ2F1c3NpYW5fbWl4dHVyZS9nYXVzc2lhbl9taXh0dXJlLmRhdGEuanNvblxuIn0= -->
+<pre><code>Writing data to ~/Documents/bridgestan/test_models/gaussian_mixture/gaussian_mixture.data.json</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwifi9Eb2N1bWVudHMvYnJpZGdlc3Rhbi90ZXN0X21vZGVscy9nYXVzc2lhbl9taXh0dXJlL2dhdXNzaWFuX21peHR1cmUuZGF0YS5qc29uXCJcbiJ9 -->
+<pre><code>[1] &quot;~/Documents/bridgestan/test_models/gaussian_mixture/gaussian_mixture.data.json&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiV3JpdGluZyBjb21wbGV0ZWQhXG4ifQ== -->
+<pre><code>Writing completed!</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQpgYGB7cn0KbGlicmFyeShkZXZ0b29scykKbGlicmFyeSh0aWR5dmVyc2UpCmxvYWRfYWxsKCIuIikKc291cmNlKCIuL1IvTlVUUy5SIikKYGBgCmBgYHtyfQpsaWJyYXJ5KHJveHlnZW4yKTsgIyBSZWFkIGluIHRoZSByb3h5Z2VuMiBSIHBhY2thZ2UKcm94eWdlbmlzZSgpOyAKYGBgCgoKCgojIExvYWRpbmcgYnJpZGdlc3RhbiBtb2RlbAoKYGBge3J9CgpsaWJyYXJ5KHJzdGFuKQoKbW9kZWxfbmFtZSA8LSAiZ2F1c3NpYW4iCmJyaWRnZXN0YW5fcGF0aCA8LSAifi9Eb2N1bWVudHMvYnJpZGdlc3RhbiIKCgoKbW9kZWwgPC0gZ2V0X21vZGVsKG1vZGVsX25hbWUpCgpgYGAKCgpgYGB7cn0Kc2FtcGxpbmcobW9kZWwkc3Rhbl9tb2RlbCwgbW9kZWwkZGF0YSkgCmBgYAoKCmBgYHtyfQpzYW1wbGVzIDwtIE5VVFMobW9kZWwkQlNfbW9kZWwsIGMoMCwxKSwgMC4wMDEsIDEwMDApCmBgYAoKCmBgYHtyfQpkYXRhPSBnZXRfbWl4dHVyZV9kYXRhKDEwMCwgcGk9YygwLjcsIDAuMyksIG11PW1hdHJpeChjKC01LCAyKSwgMiwgMSksIHNpZ21hID0gcmVwKDEsMikpCmBgYAoKCmBgYHtyfQptb2RlbF9uYW1lIDwtICJnYXVzc2lhbl9taXh0dXJlIgpicmlkZ2VzdGFuX3BhdGggPC0gIn4vRG9jdW1lbnRzL2JyaWRnZXN0YW4iCgp3cml0ZV9qc29uX2RhdGEoZGF0YSwgYnJpZGdlc3Rhbl9wYXRoLCBtb2RlbF9uYW1lKQpgYGAKCgoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQpgYGB7cn0KbGlicmFyeShkZXZ0b29scykKbGlicmFyeSh0aWR5dmVyc2UpCmxvYWRfYWxsKCIuIikKc291cmNlKCIuL1IvTlVUUy5SIikKYGBgCmBgYHtyfQpsaWJyYXJ5KHJveHlnZW4yKTsgIyBSZWFkIGluIHRoZSByb3h5Z2VuMiBSIHBhY2thZ2UKcm94eWdlbmlzZSgpOyAKYGBgCgoKCgojIExvYWRpbmcgYnJpZGdlc3RhbiBtb2RlbAoKYGBge3J9CgoKCm1vZGVsX25hbWUgPC0gImdhdXNzaWFuX21peHR1cmUiCmJyaWRnZXN0YW5fcGF0aCA8LSAifi9Eb2N1bWVudHMvYnJpZGdlc3RhbiIKCgoKbW9kZWwgPC0gZ2V0X21vZGVsKG1vZGVsX25hbWUsIDEyMzQpCgpgYGAKCmBgYHtyfQpjb21waWxlX2JzKG1vZGVsX25hbWUpCmBgYApgYGB7cn0KY3VyX2RpciA8LSBnZXR3ZCgpCmN1cl9kaXIKYGBgCgoKYGBge3J9CgogIGNvbXBpbGVfcGF0aCA8LSBwYXN0ZTAoIi4vdGVzdF9tb2RlbHMvIiwgbW9kZWxfbmFtZSwgIi8iLCBtb2RlbF9uYW1lLCAiX21vZGVsLnNvIikKc2V0d2QoQlNfUEFUSCkKZ2V0d2QoKQp0cnkoc3lzdGVtKHBhc3RlMCgibWFrZSAiLCBjb21waWxlX3BhdGgpKSkKc2V0d2QoY3VyX2RpcikKIApgYGAKCgoKYGBge3J9CnNhbXBsZXMgPC0gTlVUUyhtb2RlbCRCU19tb2RlbCwgYygxLDEsMSksIDAuMDAwMSwgMTApCgoKYGBgCmBgYHtyfQpicyA8LSBtb2RlbCRCU19tb2RlbAp0IDwtIGMoLTAuNDUxNzM1MzcsIC0wLjU1ODY4NTg3LCAtMC4wMjA2MTczOSkKYnMkbG9nX2RlbnNpdHlfZ3JhZGllbnQodCkKCjMKYGBgCgoKYGBge3J9Ck4gPC0gMTAwCmRhdGE9IGdldF9taXh0dXJlX2RhdGEoTiwgcGk9YygwLjcsIDAuMyksIG11PW1hdHJpeChjKC01LCAyKSwgMiwgMSksIHNpZ21hID0gMSkKCiB0b0pTT04obGlzdChkYXRhPWRhdGEkZGF0YSwgSyA9IDIsIE4gPSBOKSwgYXV0b191bmJveCA9IFRSVUUpCmBgYAoKCmBgYHtyfQptb2RlbF9uYW1lIDwtICJnYXVzc2lhbl9taXh0dXJlIgpicmlkZ2VzdGFuX3BhdGggPC0gIn4vRG9jdW1lbnRzL2JyaWRnZXN0YW4iCgp3cml0ZV9qc29uX2RhdGEobGlzdChkYXRhPWRhdGEkZGF0YSwgSyA9IDIsIE4gPSBOKSwgbW9kZWxfbmFtZSkKYGBgCgoKCg==</div>
 
 
 

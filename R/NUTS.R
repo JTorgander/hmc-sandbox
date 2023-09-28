@@ -11,8 +11,8 @@ source('./R/NUTS_helpers.R')
 #' @param eps Step size
 #' @param n_samples Number of post warmup samples generated
 #' @export
-NUTS <- function(stan_model, theta_0, eps, n_samples){
-    delta_max = 100
+NUTS <- function(stan_model, theta_0, eps, n_samples, warm_up = 2000){
+    delta_max = 1000
     dim <- length(theta_0)
 
     theta_prev <- stan_model$param_unconstrain(theta_0)
@@ -43,7 +43,7 @@ NUTS <- function(stan_model, theta_0, eps, n_samples){
 
         # Choose a direction
         v <- sample(c(-1, 1), 1)
-        v <- 1
+
         if (v == -1){
 
           tree <-  build_tree(stan_model, theta_neg, p_neg, u, v, j, eps, delta_max)

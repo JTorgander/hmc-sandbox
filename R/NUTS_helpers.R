@@ -13,11 +13,12 @@ leapfrog_1step <- function(stan_model, current_q, current_p, eps, m=1){
 
   g <- stan_model$log_density_gradient(q)$gradient
 
+
   p <- p + (eps/2) * g
 
 
 
-  return(list(q=q, p=p))
+  return(list(q=q, p=p, g=g))
 
 }
 
@@ -47,13 +48,27 @@ build_tree <- function(stan_model, theta, p, u, v, j, eps, delta_max){
   if (j == 0){
     # Base case - take one leapfrog step in the direction v
     new_state <- leapfrog_1step(stan_model, theta, p, v*eps)
+
     theta_new <- new_state$q
     p_new <- new_state$p
-    slice_cond <- exp(stan_model$log_density(theta_new) - 0.5*sum(p_new*p_new))
+    #slice_cond <- exp(stan_model$log_density(theta_new) - 0.5*sum(p_new*p_new))
+    log_slice_cond <- stan_model$log_density(theta_new) - 0.5*sum(p_new*p_new)
 
-    accept_state <- u <= slice_cond # Slice sampler acceptance
-    not_stop_1 <- u < slice_cond*exp(delta_max) #Stop if acceptance probability is too low
+    #accept_state <- u <= slice_cond # Slice sampler acceptance
+    accept_state <- log(u) <= log_slice_cond
 
+    #not_stop_1 <- u < slice_cond*exp(delta_max) #Stop if acceptance probability is too low
+    not_stop_1 <- log(u) < log_slice_cond + delta_max
+    if(FALSE){
+      message("Error")
+      print(theta_new)
+      print(new_state$g)
+      print(p_new)
+      print(stan_model$log_density(theta_new))
+      print(0.5*sum(p_new*p_new))
+      print(log_slice_cond)
+
+    }
     return(list(theta_neg = theta_new,
                 p_neg = p_new,
                 theta_pos = theta_new,
@@ -75,10 +90,7 @@ build_tree <- function(stan_model, theta, p, u, v, j, eps, delta_max){
     theta_new_1 <- tree_1$theta_new
     n_accepted_states_1 <- tree_1$n_accepted_states
     not_stop_1 <- tree_1$not_stop_1
-    if (is.na(not_stop_1)){
-      print(tree_1)
-      print(j)
-      }
+
     if (not_stop_1){
 
       if (v == -1) {
@@ -101,7 +113,10 @@ build_tree <- function(stan_model, theta, p, u, v, j, eps, delta_max){
         not_stop_2 <- tree_2$not_stop_1
 
       }
-      accept_prob <- n_accepted_states_2 / (n_accepted_states_1 + n_accepted_states_2)
+      accept_prob <- ifelse(max(n_accepted_states_1, n_accepted_states_2) == 0,
+                            0,
+                            n_accepted_states_2 / (n_accepted_states_1 + n_accepted_states_2)
+                            )
 
       if (runif(1) < accept_prob){
         theta_new_1 <- theta_new_2
@@ -122,4 +137,16 @@ build_tree <- function(stan_model, theta, p, u, v, j, eps, delta_max){
     )
 
   }
+}
+
+find_reasonable_eps <- function(stan_model, theta){
+  dim <- length(theta)
+  eps <- 1
+  p <- rnorm(dim, 0 ,1)
+  new_state <- leapfrog_1step(stan_model, theta, p, eps)
+  theta_new <- new_state$q
+  p_new <- new_state$p
+
+  a <- 2
+
 }

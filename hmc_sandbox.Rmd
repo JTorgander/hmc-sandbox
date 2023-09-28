@@ -20,30 +20,57 @@ roxygenise();
 
 ```{r}
 
-library(rstan)
 
-model_name <- "gaussian"
+
+model_name <- "gaussian_mixture"
 bridgestan_path <- "~/Documents/bridgestan"
 
 
 
-model <- get_model(model_name)
+model <- get_model(model_name, 1234)
 
+```
+
+```{r}
+compile_bs(model_name)
+```
+```{r}
+cur_dir <- getwd()
+cur_dir
 ```
 
 
 ```{r}
-sampling(model$stan_model, model$data) 
+
+  compile_path <- paste0("./test_models/", model_name, "/", model_name, "_model.so")
+setwd(BS_PATH)
+getwd()
+try(system(paste0("make ", compile_path)))
+setwd(cur_dir)
+ 
+```
+
+
+
+```{r}
+samples <- NUTS(model$BS_model, c(1,1,1), 0.0001, 10)
+
+
+```
+```{r}
+bs <- model$BS_model
+t <- c(-0.45173537, -0.55868587, -0.02061739)
+bs$log_density_gradient(t)
+
+3
 ```
 
 
 ```{r}
-samples <- NUTS(model$BS_model, c(0,1), 0.001, 1000)
-```
+N <- 100
+data= get_mixture_data(N, pi=c(0.7, 0.3), mu=matrix(c(-5, 2), 2, 1), sigma = 1)
 
-
-```{r}
-data= get_mixture_data(100, pi=c(0.7, 0.3), mu=matrix(c(-5, 2), 2, 1), sigma = rep(1,2))
+ toJSON(list(data=data$data, K = 2, N = N), auto_unbox = TRUE)
 ```
 
 
@@ -51,7 +78,7 @@ data= get_mixture_data(100, pi=c(0.7, 0.3), mu=matrix(c(-5, 2), 2, 1), sigma = r
 model_name <- "gaussian_mixture"
 bridgestan_path <- "~/Documents/bridgestan"
 
-write_json_data(data, bridgestan_path, model_name)
+write_json_data(list(data=data$data, K = 2, N = N), model_name)
 ```
 
 
