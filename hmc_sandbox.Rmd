@@ -4,14 +4,13 @@ output: html_notebook
 ---
 ```{r}
 library(devtools)
+library(roxygen2);
 library(tidyverse)
 load_all(".")
-source("./R/NUTS.R")
-```
-```{r}
-library(roxygen2); # Read in the roxygen2 R package
 roxygenise(); 
 ```
+
+
 
 
 
@@ -22,55 +21,41 @@ roxygenise();
 
 
 
-model_name <- "gaussian_mixture"
-bridgestan_path <- "~/Documents/bridgestan"
+model_name <- "gaussian"
 
-
-
-model <- get_model(model_name, 1234)
+#compile_bs(model_name)
+model <- get_model(model_name, model_seed = 1234, return_stan = TRUE)
 
 ```
 
-```{r}
-compile_bs(model_name)
-```
-```{r}
-cur_dir <- getwd()
-cur_dir
-```
-
+## Generating samples from both Stan and Bridgestan models
 
 ```{r}
-
-  compile_path <- paste0("./test_models/", model_name, "/", model_name, "_model.so")
-setwd(BS_PATH)
-getwd()
-try(system(paste0("make ", compile_path)))
-setwd(cur_dir)
- 
+bs_fit <- NUTS(model = model$BS_model, n_samples = 4000, eps = 0.01, theta_0 = c(0,1))
+stan_fit <- sampling(model$stan_model,  data = model$data, chains = 1, iter = 4000)
+head(bs_fit,10)
 ```
 
 
 
 ```{r}
-samples <- NUTS(model$BS_model, c(1,1,1), 0.0001, 10)
+library(bayesplot)
 
+posterior <- as.array(bs_fit)
 
+params <- dimnames(posterior)$parameters
+n_params <- length(params)
+mcmc_areas(posterior, pars= params)
+
+mcmc_hist(posterior)
+#mcmc_pairs(posterior, pars= params[1:n_params-1])
 ```
-```{r}
-bs <- model$BS_model
-t <- c(-0.45173537, -0.55868587, -0.02061739)
-bs$log_density_gradient(t)
-
-3
-```
-
+## Example 2: Gaussian mixture data
 
 ```{r}
-N <- 100
+N <- 1000
 data= get_mixture_data(N, pi=c(0.7, 0.3), mu=matrix(c(-5, 2), 2, 1), sigma = 1)
 
- toJSON(list(data=data$data, K = 2, N = N), auto_unbox = TRUE)
 ```
 
 
@@ -78,8 +63,24 @@ data= get_mixture_data(N, pi=c(0.7, 0.3), mu=matrix(c(-5, 2), 2, 1), sigma = 1)
 model_name <- "gaussian_mixture"
 bridgestan_path <- "~/Documents/bridgestan"
 
-write_json_data(list(data=data$data, K = 2, N = N), model_name)
+write_json_data(list(y=data$data, K = 2, N = N), model_name)
 ```
 
+## 2 Including gibbs sampler - Example: "Pure gibbs" for gaussian mixtures
 
+```{r}
+set.seed(123)
+N <- 1000
+z_0 <- sample(1:2, N, replace = TRUE)
+
+
+mixture_gibbs(data$data,1, c(0,1), z_0, 1, 1)
+
+
+```
+
+```{r}
+
+z_true <- sample_cond_z(data$data,  c(-5, 2), 1)
+```
 

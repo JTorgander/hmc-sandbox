@@ -16,54 +16,32 @@ BS_PATH <- "~/Documents/bridgestan"
 #' @export
 get_model <- function(model_name, model_seed, return_stan = FALSE, data = TRUE,  bridgestan_path = BS_PATH){
 
+  # Generating paths to models and data
   model_path <- paste0(bridgestan_path, "/test_models/", model_name)
   bs_stan_model_path <- paste0(model_path, "/", model_name, "_model.so")
   stan_model_path <- paste0(model_path, "/", model_name, ".stan")
-
   data_path <-  ifelse(data, paste0(model_path, "/", model_name, ".data.json"), "")
 
   if (return_stan){
-    print("hej")
-  data <- fromJSON(data_path)
-  model_seed <- 1234
 
-  stan_model <- stan_model(stan_model_path)
+    # Loading data and compiling Stan model
+    data <- fromJSON(data_path)
+    model_seed <- 1234
+    stan_model <- stan_model(stan_model_path)
+
   } else {
 
     data <- list()
     stan_model <- list()
   }
+
+  # Generating Bridgestan-model
   BS_model <-  StanModel$new(bs_stan_model_path, data_path, model_seed)
 
   return(list(BS_model = BS_model,
               stan_model = stan_model,
-              data = data
-             )
-        )
-}
-
-#' Generation of mixture normal data
-#'
-#' Generates a data set distributed according to a normal mixture distribution
-#' @param n_samples Number of samples
-#' @param pi Vector of class probabilities
-#' @param mu Maxtrix of cluster means
-#' @param sigma Matrix of cluster standard deviationos
-#' @export
-get_mixture_data <- function(n_samples, pi, mu, sigma){
-
-  dim <- ncol(mu)
-  n_classes <- length(pi)
-  data <- matrix(0, nrow = n_samples, ncol = dim)
-  classes <- sample(1:n_classes, n_samples, replace = TRUE, prob = pi)
-
-  for (i in 1:n_samples){
-    c <- classes[i]
-    data[i, ] <- mvrnorm(1, mu[c, ], diag(sigma, nrow=dim, ncol=dim))
-  }
-
-  return(list(data=as.vector(data), classes = classes))
-
+              data = data)
+          )
 }
 
 

@@ -4,16 +4,16 @@
 \alias{NUTS}
 \title{NUTS/bridgestan sampler}
 \usage{
-NUTS(stan_model, theta_0, eps, n_samples)
+NUTS(model, n_samples, eps, theta_0, warm_up = floor(n_samples/2))
 }
 \arguments{
-\item{stan_model}{Input bridgestan model}
+\item{model}{Input bridgestan model}
 
-\item{theta_0}{Initial parameter value}
+\item{n_samples}{Number of post warmup samples generated}
 
 \item{eps}{Step size}
 
-\item{n_samples}{Number of post warmup samples generated}
+\item{theta_0}{Initial parameter value}
 }
 \description{
 Sampling from an input bridgestan model, using the NUTS sampler

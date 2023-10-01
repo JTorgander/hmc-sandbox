@@ -82,6 +82,7 @@ build_tree <- function(stan_model, theta, p, u, v, j, eps, delta_max){
   } else{
 
     # Recursion - implicitly build the left and right subtrees
+
     tree_1 <-  build_tree(stan_model, theta, p, u, v, j - 1, eps, delta_max)
     theta_neg <- tree_1$theta_neg
     p_neg <- tree_1$p_neg
