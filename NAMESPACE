@@ -2,4 +2,5 @@
 
 export(NUTS)
 export(get_model)
+export(leapfrog_1step)
 export(write_json_data)

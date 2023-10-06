@@ -100,3 +100,86 @@ mm_gs_mu_prior <- "
 
 
 "
+
+
+mixture_multi_gs <- "
+
+  functions {
+
+    real gumbel_centered_lpdf(vector y, int K, vector x){
+    vector[K] u;
+    u[1:K-1] = y;
+    u[K] = 0;
+
+    return lgamma(K) + sum(x - u) - K * log_sum_exp(x - u);
+  }
+
+  }
+
+  data {
+    int<lower=1> K;  // Number of categories
+    int M; // Dimension of response
+    simplex[K] pi;   // Probability vector
+    real tau;        // Temperature parameter
+    matrix[K, M] mu;
+  }
+
+  transformed data {
+
+    vector[K] pi_log = log(pi);
+  }
+
+  parameters {
+    vector[K-1] u;
+    vector[M] y;
+
+  }
+
+  transformed parameters {
+
+     vector[K] u_softmax;
+     vector[K] u_transformed;
+     vector[K] mixture;
+     matrix[K,K] sigma = diag_matrix(rep_vector(1, K));
+     real u_max;
+     real sum_y;
+     real sum_u;
+
+     // Transforming CS -> GS
+     u_transformed[1:K-1] = u/tau;
+     u_transformed[K] = 0;
+     u_max = max(u_transformed);
+
+     sum_y = sum(exp(u_transformed - u_max));
+     sum_u = log_sum_exp( u_transformed);
+
+     u_softmax[K] = 0;
+     for (k in 1:K-1) {
+          u_softmax[k] = exp(u_transformed[k] - u_max)/sum_y;
+          mixture[k] = u_transformed[k] - sum_u + multi_normal_lpdf(y | mu[k], sigma) ;
+
+     }
+
+     u_softmax[K] = 1 - sum(u_softmax);
+        mixture[K] =  (-1)*sum_u + multi_normal_lpdf(y | mu[K],  sigma);
+
+  }
+
+ model {
+
+      u ~ gumbel_centered_lpdf(K, pi_log);
+      target += log_sum_exp(mixture);
+
+ }
+
+ generated quantities {
+
+ vector[K] u_softmax_rounded;
+
+ u_softmax_rounded = round(u_softmax);
+
+ }
+
+
+
+"

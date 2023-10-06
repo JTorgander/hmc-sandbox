@@ -10,50 +10,74 @@ load_all(".")
 roxygenise(); 
 ```
 
-
-
-
-
-
 # Loading bridgestan model
 
 ```{r}
-
-
-
-model_name <- "gaussian"
-
-#compile_bs(model_name)
+model_name <- "regression"
+compile_bs(model_name)
 model <- get_model(model_name, model_seed = 1234, return_stan = TRUE)
+print(paste0("Model parameter names: ", model$param_names))
+```
 
+
+# Inspecting original data
+
+```{r}
+as.data.frame(model$data) %>% ggplot(aes(x,y)) + geom_point()
 ```
 
 ## Generating samples from both Stan and Bridgestan models
 
 ```{r}
-bs_fit <- NUTS(model = model$BS_model, n_samples = 4000, eps = 0.01, theta_0 = c(0,1))
+theta_0 <- c(0,1,1)
+bs_fit <- NUTS(model = model$BS_model, n_samples = 4000, eps = 0.1, theta_0 = theta_0)
 stan_fit <- sampling(model$stan_model,  data = model$data, chains = 1, iter = 4000)
 head(bs_fit,10)
 ```
 
+# Posterior comparison Stan vs Bridgestan
 
+```{r, message=FALSE}
+library(bayesplot)
+library(patchwork)
+library(gridExtra)
+bs_posterior <- as.array(bs_fit)
+stan_posterior <- as.array(stan_fit)
+params <- c("alpha", "beta", "sigma")
+#mcmc_areas(bs_posterior, pars= params)
+#mcmc_areas(stan_posterior, pars= params)
+bs_hist <- mcmc_hist(bs_posterior, pars= params) + labs(title = "Bridgestan")
+stan_hist <- mcmc_hist(stan_posterior, pars = params) + labs(title = "Stan")
+#mcmc_pairs(posterior, pars= params[1:n_params-1])
+grid.arrange(bs_hist, stan_hist)
+```
+# Comparing metrics 
 
 ```{r}
-library(bayesplot)
+library(posterior)
 
-posterior <- as.array(bs_fit)
+stan_draws <- as_draws(stan_fit)
+bs_draws <- as_draws_list(bs_fit)
 
-params <- dimnames(posterior)$parameters
-n_params <- length(params)
-mcmc_areas(posterior, pars= params)
+metrics <- c("mean", "median", "sd", "rhat", "ess_bulk", "ess_tail")
 
-mcmc_hist(posterior)
-#mcmc_pairs(posterior, pars= params[1:n_params-1])
+stan_summary <- summarize_draws(stan_draws)
+bs_summary <- summarize_draws(bs_draws) %>% mutate(variable = str_c(str_replace(str_replace(variable, "\\.", "["), "\\.", ",")))
+stan_summary["model"] <- "stan"
+bs_summary["model"] <- "bridgestan"
+
+stats_combined <- bind_rows(bs_summary, stan_summary) %>% filter(variable %in% params)
+stats_combined %>% select(model, variable,  any_of(metrics)) %>% arrange(variable, model) %>% filter(variable != 'lp__')
+
 ```
+
+
+
+
 ## Example 2: Gaussian mixture data
 
 ```{r}
-N <- 1000
+N <- 100
 data= get_mixture_data(N, pi=c(0.7, 0.3), mu=matrix(c(-5, 2), 2, 1), sigma = 1)
 
 ```
@@ -66,21 +90,28 @@ bridgestan_path <- "~/Documents/bridgestan"
 write_json_data(list(y=data$data, K = 2, N = N), model_name)
 ```
 
+
+
 ## 2 Including gibbs sampler - Example: "Pure gibbs" for gaussian mixtures
 
 ```{r}
 set.seed(123)
-N <- 1000
+N <- 100
 z_0 <- sample(1:2, N, replace = TRUE)
+mu <- c(199,2)
+#sample_cond_mu(data$data, 2, 1, 1, z_0)
 
-
-mixture_gibbs(data$data,1, c(0,1), z_0, 1, 1)
-
-
+t <- mixture_gibbs(data$data, 1000, c(0,1), z_0, 1, 1) %>% as.data.frame()
+t
 ```
+
+
+
+## 3 Metropolis-within-Gibbs
 
 ```{r}
-
-z_true <- sample_cond_z(data$data,  c(-5, 2), 1)
+model <- StanModel$new("~/Documents/bridgestan/test_models/gaussian_mixture_gibbs/gaussian_mixture_gibbs_model.so", data_path, 123)
 ```
+
+
 
