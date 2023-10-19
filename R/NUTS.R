@@ -1,4 +1,5 @@
 source('./R/NUTS_helpers.R')
+library(MASS, exclude="select")
 
 # TODO: implement Dual averaging/adaptive step size
 
@@ -10,21 +11,22 @@ source('./R/NUTS_helpers.R')
 #' @param eps Step size
 #' @param n_samples Number of post warmup samples generated
 #' @export
-NUTS <- function(model, n_samples, eps, theta_0, warm_up = floor(n_samples/2)){
-    #TODO: add mass matrix arg
-    delta_max = 1000
+NUTS <- function(model, n_samples, eps, theta_0, warm_up = floor(n_samples/2), inv_mass_matrix = diag(rep(1, length(theta_0)))){
+    delta_max = 2000
     dim_constr <- length(theta_0)
     theta_prev <- model$param_unconstrain(theta_0)
     dim_unconstr <- length(theta_prev)
     param_names <- model$param_names()
+    mass_matrix <- solve(inv_mass_matrix)
     # Initializing output sample matrix
     samples <- matrix(0, n_samples, dim_constr, dimnames = list(iteration = c(),
                                                                 parameters = param_names))
     for (m in 1:(n_samples + warm_up)){
       # Sampling momentum variable
-      p0 <- rnorm(dim_unconstr, 0, 1)
+      #p0 <- rnorm(dim_unconstr, 0, sqrt(1/inv_mass_matrix))
+      p0 <- mvrnorm(1, rep(0, dim_unconstr), mass_matrix)
       # Formulating slice sampler condition
-      slice_cond <- exp(model$log_density(theta_prev) - 0.5*sum(p0*p0))
+      slice_cond <- exp(model$log_density(theta_prev) - 0.5*t(p0)%*%inv_mass_matrix%*%p0)
       u <- runif(1, min = 0, max = slice_cond)
       # Initializing state variables
       theta_neg <- theta_prev
@@ -41,14 +43,14 @@ NUTS <- function(model, n_samples, eps, theta_0, warm_up = floor(n_samples/2)){
         v <- sample(c(-1, 1), 1)
         # Building either the forward or backwards binary leapfrog tree
         if (v == -1){
-          tree <-  build_tree(model, theta_neg, p_neg, u, v, j, eps, delta_max)
+          tree <-  build_tree(model, theta_neg, p_neg, u, v, j, eps, delta_max, inv_mass_matrix)
           theta_neg <- tree$theta_neg
           p_neg <- tree$p_neg
           theta_proposal <- tree$theta_new
           n_accepted_states_new <- tree$n_accepted_states
           not_stop_1 <- tree$not_stop_1
         } else{
-          tree <-  build_tree(model, theta_pos, p_pos, u, v, j, eps, delta_max)
+          tree <-  build_tree(model, theta_pos, p_pos, u, v, j, eps, delta_max, inv_mass_matrix)
           theta_pos <- tree$theta_pos
           p_pos <- tree$p_pos
           theta_proposal <- tree$theta_new
@@ -65,7 +67,13 @@ NUTS <- function(model, n_samples, eps, theta_0, warm_up = floor(n_samples/2)){
         # Updating acceptance probability
         n_accepted_states <- n_accepted_states + n_accepted_states_new
         # Checking if No-U-Turn condition is violated
-        not_stop <- not_stop_1*has_no_u_turn(theta_pos, theta_neg, p_pos, p_neg)
+        no_u_turn <-  has_no_u_turn(theta_pos, theta_neg, p_pos, p_neg)
+        # Assuring that last momentum update has not exploded 
+        if (is.na(no_u_turn)){
+          not_stop <- FALSE
+        } else {
+          not_stop <- not_stop_1*no_u_turn
+        }
         j <- j + 1
       }
       # Saving samples if burn-in phase is completed

@@ -4,7 +4,14 @@
 \alias{NUTS}
 \title{NUTS/bridgestan sampler}
 \usage{
-NUTS(model, n_samples, eps, theta_0, warm_up = floor(n_samples/2))
+NUTS(
+  model,
+  n_samples,
+  eps,
+  theta_0,
+  warm_up = floor(n_samples/2),
+  inv_mass_matrix = diag(rep(1, length(theta_0)))
+)
 }
 \arguments{
 \item{model}{Input bridgestan model}

@@ -4,7 +4,7 @@
 \alias{leapfrog_1step}
 \title{One-step integration with leapfrog algorithm}
 \usage{
-leapfrog_1step(model, current_q, current_p, eps, mass = 1)
+leapfrog_1step(model, current_q, current_p, eps, inv_mass_matrix)
 }
 \arguments{
 \item{model}{Underlying bridgestan model object}
@@ -13,7 +13,7 @@ leapfrog_1step(model, current_q, current_p, eps, mass = 1)
 
 \item{eps}{Step size}
 
-\item{mass}{Particle mass for parameter update step}
+\item{inv_mass_matrix}{Diagonal of inverse mass matrix}
 
 \item{model_name}{Vector with current momentum variable values}
 }

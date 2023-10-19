@@ -1,6 +1,7 @@
 
 library(bridgestan)
 library(jsonlite)
+library(cmdstanr)
 library(rstan)
 library(MASS, exclude="select")
 
@@ -14,7 +15,7 @@ BS_PATH <- "~/Documents/bridgestan"
 #' @param model_name Name of bridgestan model to be imported
 #' @param data Boolean indicating if the corresponding data.json file should be included.
 #' @export
-get_model <- function(model_name, model_seed, return_stan = FALSE, data = TRUE,  bridgestan_path = BS_PATH){
+get_model <- function(model_name, model_seed, data = TRUE,  bridgestan_path = BS_PATH){
 
   # Generating paths to models and data
   model_path <- paste0(bridgestan_path, "/test_models/", model_name)
@@ -22,8 +23,9 @@ get_model <- function(model_name, model_seed, return_stan = FALSE, data = TRUE, 
   stan_model_path <- paste0(model_path, "/", model_name, ".stan")
   data_path <-  ifelse(data, paste0(model_path, "/", model_name, ".data.json"), "")
   data <- fromJSON(data_path)
-  # Generating (optional) stan model
-  stan_model <- ifelse(return_stan, stan_model(stan_model_path), list())
+  # Generating stan model
+  #stan_model <- stan_model(stan_model_path)
+  stan_model <- cmdstan_model(stan_model_path)
   # Generating Bridgestan-model
   message("Loading Bridgestan model")
   BS_model <-  StanModel$new(bs_stan_model_path, data_path, model_seed)
@@ -45,10 +47,8 @@ get_model <- function(model_name, model_seed, return_stan = FALSE, data = TRUE, 
 #' @param model_name Name of the Bridgestan model corresponding tothe data
 #' @export
 write_json_data <- function(data, model_name, bridgestan_path = BS_PATH){
-
   # Converting data from list to JSON-format
   data_json <- toJSON(data, auto_unbox = TRUE)
-
   # Writing JSON file to disk
   data_path <- paste0(bridgestan_path, "/test_models/", model_name, "/", model_name, ".data.json")
   message(paste0("Writing data to ", data_path))
@@ -58,16 +58,12 @@ write_json_data <- function(data, model_name, bridgestan_path = BS_PATH){
 }
 
 compile_bs <- function(model_name, bridgestan_path = BS_PATH){
-
   # Saving current wd
   cur_dir <- getwd()
-
   # Changing to bridgestan directory and compiling model
   setwd(BS_PATH)
   compile_path <- paste0("./test_models/", model_name, "/", model_name, "_model.so")
   try(system(paste0("make ", compile_path)))
-
   # Reseting wd
   setwd(cur_dir)
-
 }

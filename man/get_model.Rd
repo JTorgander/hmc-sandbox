@@ -4,13 +4,7 @@
 \alias{get_model}
 \title{Stan Model getter}
 \usage{
-get_model(
-  model_name,
-  model_seed,
-  return_stan = FALSE,
-  data = TRUE,
-  bridgestan_path = BS_PATH
-)
+get_model(model_name, model_seed, data = TRUE, bridgestan_path = BS_PATH)
 }
 \arguments{
 \item{model_name}{Name of bridgestan model to be imported}
