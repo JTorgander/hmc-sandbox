@@ -1,11 +1,5 @@
 
-library(bridgestan)
-library(jsonlite)
-library(cmdstanr)
-library(rstan)
-library(MASS, exclude="select")
-
-BS_PATH <- "~/Documents/bridgestan"
+BS_PATH <- "~/Documents/bridgestan" #Replace with path to bridgestan directory
 
 #' Stan Model getter
 #'
@@ -22,13 +16,13 @@ get_model <- function(model_name, model_seed, data = TRUE,  bridgestan_path = BS
   bs_stan_model_path <- paste0(model_path, "/", model_name, "_model.so")
   stan_model_path <- paste0(model_path, "/", model_name, ".stan")
   data_path <-  ifelse(data, paste0(model_path, "/", model_name, ".data.json"), "")
-  data <- fromJSON(data_path)
+  data <- jsonlite::fromJSON(data_path)
   # Generating stan model
   #stan_model <- stan_model(stan_model_path)
-  stan_model <- cmdstan_model(stan_model_path)
+  stan_model <- cmdstanr::cmdstan_model(stan_model_path)
   # Generating Bridgestan-model
   message("Loading Bridgestan model")
-  BS_model <-  StanModel$new(bs_stan_model_path, data_path, model_seed)
+  BS_model <-  bridgestan::StanModel$new(bs_stan_model_path, data_path, model_seed)
   param_names <- BS_model$param_names()
   message("Models loaded!")
 
@@ -48,7 +42,7 @@ get_model <- function(model_name, model_seed, data = TRUE,  bridgestan_path = BS
 #' @export
 write_json_data <- function(data, model_name, bridgestan_path = BS_PATH){
   # Converting data from list to JSON-format
-  data_json <- toJSON(data, auto_unbox = TRUE)
+  data_json <- jsonlite::toJSON(data, auto_unbox = TRUE)
   # Writing JSON file to disk
   data_path <- paste0(bridgestan_path, "/test_models/", model_name, "/", model_name, ".data.json")
   message(paste0("Writing data to ", data_path))

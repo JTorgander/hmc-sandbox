@@ -1,5 +1,15 @@
 Package: hmcSandbox
 Type: Package
+Author@R: person("Jakob", "Torgander", "jakob.torgander@statistik.uu.se", role = c("aut", "cre"))
+Author: Jakob Torgander [aut, cre]
+Maintainer: Jakob Torgander <jakob.torgander@statistik.uu.se>
 Title: Sandbox and diagnostics for HMC-samplers
+Description: Sandbox environment for implementing and evaluating Hamiltonian Monte Carlo (HMC) samplers. 
 Version: 0.0.1.0
 RoxygenNote: 7.2.3
+Imports: 
+    bridgestan,
+    cmdstanr,
+    jsonlite,
+    MASS
+License: MIT + file LICENSE
