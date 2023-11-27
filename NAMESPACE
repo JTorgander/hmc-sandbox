@@ -3,6 +3,7 @@
 export(NUTS)
 export(get_mixture_data)
 export(get_model)
+export(initialize_model)
 export(leapfrog_1step)
 export(write_json_data)
 import(MASS)

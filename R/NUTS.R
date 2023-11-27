@@ -5,13 +5,28 @@ source('./R/NUTS_helpers.R')
 #' NUTS/bridgestan sampler
 #'
 #' Sampling from an input bridgestan model, using the NUTS sampler
-#' @param model Input bridgestan model
-#' @param theta_0 Initial parameter value
-#' @param eps Step size
+#' @param model Input bridgestan and cmdstan model object
 #' @param n_samples Number of post warmup samples generated
+#' @param warm_up Sampler burn-in-period
+#' @param initialize_model TRUE if stan's initialization of mass matrix and step size should be used
+#' @param return_hessian TRUE if the full hessian should be genererated at each leapfrog iteration
+#' @param initial_params Optional list containing initial custom parameters "step_size", "mass_matrix" and "theta_0".
+#' Used when initialize_model == FALSE
 #' @import MASS
 #' @export
-NUTS <- function(model, n_samples, eps, theta_0, warm_up = floor(n_samples/2), inv_mass_matrix = diag(rep(1, length(theta_0))), return_hessian = FALSE){
+NUTS <- function(model_object, n_samples, warm_up = floor(n_samples/2), initialize_model = TRUE, return_hessian = FALSE, initial_params = NULL){
+    # Initializing model parameters and mass matrix
+    if (initialize_model || is.null(initial_params)){
+      message("Initializing model..\n\nInitialization messages:")
+      init <- initialize_model(model_object, warm_up)
+      message("\n\nModel initialized!\n")
+    } else {
+      init <- initial_params
+    }
+    eps <- init$step_size
+    inv_mass_matrix <- init$mass_matrix
+    theta_0 <- init$theta_0
+    model <- model_object$BS_model
     delta_max = 2000
     dim_constr <- length(theta_0)
     theta_prev <- model$param_unconstrain(theta_0)
@@ -24,6 +39,7 @@ NUTS <- function(model, n_samples, eps, theta_0, warm_up = floor(n_samples/2), i
     # Initializing output sample matrix
     samples <- matrix(0, n_samples, dim_constr, dimnames = list(iteration = c(),
                                                                 parameters = param_names))
+    message("Generating samples..")
     for (m in 1:(n_samples + warm_up)){
       sample_trajectory <- list()
       # Sampling momentum variable
@@ -94,6 +110,7 @@ NUTS <- function(model, n_samples, eps, theta_0, warm_up = floor(n_samples/2), i
       # Updating parameters
       theta_prev <- theta_new
     }
+    message("Sampling completed!")
     return(list(samples=samples,
                 dim_unconstr=dim_unconstr,
                 param_names=param_names,

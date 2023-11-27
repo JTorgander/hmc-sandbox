@@ -151,6 +151,38 @@ build_tree <- function(stan_model, theta, p, u, v, j, eps, delta_max, inv_mass_m
   }
 }
 
+#' Initialization of HMC model parameters
+#'
+#' Using Stan to initialize the mass matrix, step size and initial parameter value.
+#' @param model Underlying cmdstan model object
+#' @param warmup Burn-in-period of the initialization
+#' @export
+initialize_model <- function(model, warm_up){
+  # Initializing model
+  fit <- model$stan_model$sample(
+    data = model$data,
+    chains = 1,
+    iter_warmup = warm_up,
+    iter_sampling = 1,
+    refresh = 0,
+    show_messages = FALSE
+  )
+  # Extracting mass matrix, initial parameter values and step size
+  mass_matrix = fit$inv_metric(matrix = TRUE)[[1]]
+  theta_0 <- fit$draws() %>% as.vector()
+  step_size <- fit$metadata()$step_size_adaptation
+  # Extracting unconstrained parameter components
+  all_params <-  fit$summary()$variable
+  unconstr_params_idx <- which(all_params %in% model$param_names)
+  theta_0 <- theta_0[unconstr_params_idx]
+
+  return(list(mass_matrix= mass_matrix,
+              theta_0 = theta_0,
+              step_size = step_size))
+
+}
+
+
 find_reasonable_eps <- function(stan_model, theta){
   dim <- length(theta)
   eps <- 1
