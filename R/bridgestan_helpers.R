@@ -8,6 +8,9 @@ BS_PATH <- "~/Documents/bridgestan" #Replace with path to bridgestan directory
 #' @param bridgestan_path Path to compiled bridgestan models and data
 #' @param model_name Name of bridgestan model to be imported
 #' @param data Boolean indicating if the corresponding data.json file should be included.
+#' @import jsonlite
+#' @import cmdstanr
+#' @import bridgestan
 #' @export
 get_model <- function(model_name, model_seed, data = TRUE,  bridgestan_path = BS_PATH){
 
