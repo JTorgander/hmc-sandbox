@@ -3,6 +3,7 @@
 #' Extracting and summarizing parameter, momentum, gradient and hessian
 #'trajectories for a given NUTS-simulation
 #' @param sim Input NUTS simulation
+#' @export
 get_trajectory_stats <- function(sim){
   traj <- sim$trajectories
   df <- data.frame()
