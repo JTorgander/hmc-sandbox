@@ -54,7 +54,13 @@ write_json_data <- function(data, model_name, bridgestan_path = BS_PATH){
 
 }
 
-compile_bs <- function(model_name, bridgestan_path = BS_PATH){
+#' Write R data to bridgestan data JSON file
+#'
+#' Compiling a stan model into a bridgestan binary shared object (.so) file
+#' @param model_name Name of the bridgestan folder containing the .stan file to be compiled
+#' @param bridge_stan_path Path to Bridgestan dir
+#' @export
+compile_bs <- function(model_name, bridgestan_path){
   # Saving current wd
   cur_dir <- getwd()
   # Changing to bridgestan directory and compiling model

@@ -14,7 +14,7 @@ source('./R/NUTS_helpers.R')
 #' Used when initialize_model == FALSE
 #' @import MASS
 #' @export
-NUTS <- function(model_object, n_samples, warm_up = floor(n_samples/2), initialize_model = TRUE, return_hessian = FALSE, initial_params = NULL){
+NUTS <- function(model_object, n_samples, warm_up = floor(n_samples/2), initialize_model = TRUE, return_hessian = TRUE, initial_params = NULL){
     # Initializing model parameters and mass matrix
     if (initialize_model || is.null(initial_params)){
       message("Initializing model..\n\nInitialization messages:")
