@@ -1,0 +1,138 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# hmcSandbox
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The hmcSandbox provides a customizable R-implementation of the [NUTS-sampler](https://arxiv.org/abs/1111.4246) which allows the user to extract sampler diagnostics from each algorithm step. 
+
+## Installation
+
+The hmcSanbox is built using the Bridgestan and Cmdstan frameworks, which both needs to be installed before the package can be used. 
+
+Installation links:
+
+* Bridgestan: https://github.com/roualdes/bridgestan
+
+* Cmdstan: https://mc-stan.org/users/interfaces/cmdstan
+
+The development version of hmcSandbox can then be installed from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("JTorgander/hmc-sandbox")
+```
+
+## Demonstration 
+
+### Loading models
+
+In order to use a given stan-model within the hmc-sandbox, the corresponding stan file `model_name.stan` needs to be placed in a named folder `model_name`. This folder should also contain the input data in a JSON-file named `model_name.data.json`. This folder should in turn be placed in the folder `test_models` in the bridgestan directory.
+
+To illustrate this we will use the bridgestan test model `regression`, defined as follows:
+
+```{r, eval=FALSE}
+"data {
+  int<lower=0> N;
+  vector[N] x;
+  vector[N] y;
+}
+parameters {
+  real alpha;
+  real beta;
+  real<lower=0> sigma;
+}
+transformed parameters {
+  vector[N] mu = alpha + beta * x;
+}
+model {
+  alpha ~ normal(0, 5);
+  beta ~ normal(0, 3);
+  sigma ~ cauchy(0, 1.5);
+  y ~ normal(mu, sigma);
+}
+generated quantities {
+  real x_gen = normal_rng(0, 2);
+  real y_gen = normal_rng(alpha + beta * x_gen, sigma);
+}"
+```
+For this model, the bridgestan test_models folder contains a folder `regression`, which in turn contains one model file `regression.stan` and one data file `regression.data.json`.
+
+Before the stan model can be used within bridgestan, the .stan file needs to be compiled in to compiled shared object `.so` file. For mac users the model can be compiled with the following function.
+
+```{r}
+library(hmcSandbox)
+BS_PATH <- "~/Documents/bridgestan"
+model_name <- "regression"
+compile_bs(model_name=model_name, bridgestan_path=BS_PATH)
+```
+
+Here the argument "bridgestan_path" should be set to the bridgestan install directory. Other users are referred to the bridgestan [documentation]( https://github.com/roualdes/bridgestan). Note that the model needs to be recompiled whenever the `.stan` file is modified. The compiled model can now be loaded using the following function. 
+
+```{r}
+model <- get_model(model_name, model_seed = 1234, data=TRUE, bridgestan_path=BS_PATH)
+```
+
+Setting `data=TRUE` here indicates that the data.json file featured in the model folder should be used when loading the model.
+
+### Sampling
+
+Having loaded the model obejct, we can now sample from the loaded model using the following code:
+
+```{r bs_sampling}
+bs_fit <- NUTS(model = model, n_samples = 4000, warm_up = 2000)
+```
+This will yield 4000 samples using a burn-in/initialization period of 2000 samples. For reference purposes, the model object also contains the original cmdstan model. This model can in turn be sampled from as before using the `sample` method:
+
+```{r stan_sampling}
+stan_fit <- model$stan_model$sample(data = model$data, chains = 1, iter_sampling = 4000)
+```
+### Inspecting samples
+
+We can now inspect and compare the samples generated from our both samplers. The output format of the samplers should work with the [bayesplot](http://mc-stan.org/bayesplot/) library
+
+```{r plotting, message=FALSE}
+library(bayesplot)
+library(ggplot2)
+library(gridExtra)
+bs_posterior <- as.array(bs_fit$samples)
+stan_posterior <- as.array(stan_fit$draws())
+
+bs_hist <- mcmc_hist(bs_posterior) + labs(title = "Bridgestan")
+stan_hist <- mcmc_hist(stan_posterior, pars = c("alpha", "beta", "sigma")) + labs(title = "Stan")
+grid.arrange(bs_hist, stan_hist)
+
+```
+
+### Extracting sample trajectories
+
+Given a sampling run, the trajectories of the leapfrog iterations can be extracted as follows. 
+
+```{r}
+trajectories <- get_trajectory_stats(bs_fit, n_samples=1)
+knitr::kable(trajectories)
+```
+`
+For each sample, parameter and leapfrog algorithm update the following information is currently extracted:
+
+* `subtree`: which binary subtree of the NUTS algorithm the leapfrog step belongs to
+* `tree_dir` indicating if the current subtree is grown in a positive or negative direction
+* `g1` `g2`: first and second gradient update 
+* `p1`, `p2`: first and second momentum updates: 
+* `h1_diag`, `h2_diag`: diagonal of first and second Hessian: 
+* `h1_param1_param2`, `h2_param1_param2`: lower triangular Hessian compontents: 
+* `g1_l2`, `g2_l2`: $L^2$-norm of the first and second gradient: 
