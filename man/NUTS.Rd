@@ -5,22 +5,27 @@
 \title{NUTS/bridgestan sampler}
 \usage{
 NUTS(
-  model,
+  model_object,
   n_samples,
-  eps,
-  theta_0,
   warm_up = floor(n_samples/2),
-  inv_mass_matrix = diag(rep(1, length(theta_0)))
+  initialize_model = TRUE,
+  return_hessian = TRUE,
+  initial_params = NULL
 )
 }
 \arguments{
-\item{model}{Input bridgestan model}
-
 \item{n_samples}{Number of post warmup samples generated}
 
-\item{eps}{Step size}
+\item{warm_up}{Sampler burn-in-period}
 
-\item{theta_0}{Initial parameter value}
+\item{initialize_model}{TRUE if stan's initialization of mass matrix and step size should be used}
+
+\item{return_hessian}{TRUE if the full hessian should be genererated at each leapfrog iteration}
+
+\item{initial_params}{Optional list containing initial custom parameters "step_size", "mass_matrix" and "theta_0".
+Used when initialize_model == FALSE}
+
+\item{model}{Input bridgestan and cmdstan model object}
 }
 \description{
 Sampling from an input bridgestan model, using the NUTS sampler

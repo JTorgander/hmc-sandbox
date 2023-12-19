@@ -4,7 +4,14 @@
 \alias{leapfrog_1step}
 \title{One-step integration with leapfrog algorithm}
 \usage{
-leapfrog_1step(model, current_q, current_p, eps, inv_mass_matrix)
+leapfrog_1step(
+  model,
+  current_q,
+  current_p,
+  eps,
+  inv_mass_matrix,
+  return_hessian = FALSE
+)
 }
 \arguments{
 \item{model}{Underlying bridgestan model object}
