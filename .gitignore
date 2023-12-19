@@ -3,3 +3,11 @@
 .RData
 .Ruserdata
 hmc_sandbox.Rmd
+R/sampling.R
+R/Models/*
+R/mixture*
+R/gs.R
+R/gibbs.R
+R/gaussian\ mixtures/*
+hmc-sandbox.Rproj
+hmc_sandbox.nb.html
