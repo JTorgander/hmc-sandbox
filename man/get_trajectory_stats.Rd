@@ -4,12 +4,12 @@
 \alias{get_trajectory_stats}
 \title{Sample trajectory summary generator}
 \usage{
-get_trajectory_stats(sim, n_trajectories = 1)
+get_trajectory_stats(sim, n_samples = 1)
 }
 \arguments{
 \item{sim}{Input NUTS simulation}
 
-\item{n_trajectories}{Number of trajectories which should be extracted}
+\item{n_samples}{Number of samples for which trajectories should be extracted}
 }
 \description{
 Extracting and summarizing parameter, momentum, gradient and hessian

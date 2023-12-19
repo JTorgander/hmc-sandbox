@@ -22,7 +22,7 @@ The hmcSandbox provides a customizable R-implementation of the [NUTS-sampler](ht
 
 ## Installation
 
-The hmcSanbox is built using the Bridgestan and Cmdstan frameworks, which both needs to be installed before the package can be used. 
+The hmcSandbox is built using the Bridgestan and Cmdstan frameworks, which both needs to be installed before the package can be used. 
 
 Installation links:
 
@@ -41,9 +41,9 @@ devtools::install_github("JTorgander/hmc-sandbox")
 
 ### Loading models
 
-In order to use a given stan-model within the hmc-sandbox, the corresponding stan file `model_name.stan` needs to be placed in a named folder `model_name`. This folder should also contain the input data in a JSON-file named `model_name.data.json`. This folder should in turn be placed in the folder `test_models` in the bridgestan directory.
+In order to use a given stan-model within the hmc-sandbox, the corresponding stan file `model_name.stan` needs to be placed in a named folder `model_name`. This folder should also contain the input data in a JSON-file named `model_name.data.json`. This folder should in turn be placed in the folder `test_models` in the Bridgestan directory.
 
-To illustrate this we will use the bridgestan test model `regression`, defined as follows:
+To illustrate this we will use the Bridgestan test model `regression`, defined as follows:
 
 ```{r, eval=FALSE}
 "data {
@@ -70,9 +70,9 @@ generated quantities {
   real y_gen = normal_rng(alpha + beta * x_gen, sigma);
 }"
 ```
-For this model, the bridgestan test_models folder contains a folder `regression`, which in turn contains one model file `regression.stan` and one data file `regression.data.json`.
+For this model, the Bridgestan test_models folder contains a folder `regression`, which in turn contains one model file `regression.stan` and one data file `regression.data.json`.
 
-Before the stan model can be used within bridgestan, the .stan file needs to be compiled in to compiled shared object `.so` file. For mac users the model can be compiled with the following function.
+Before the stan model can be used within Bridgestan, the .stan file needs to be compiled in to compiled shared object `.so` file. For mac users the model can be compiled with the following function.
 
 ```{r}
 library(hmcSandbox)
@@ -81,7 +81,7 @@ model_name <- "regression"
 compile_bs(model_name=model_name, bridgestan_path=BS_PATH)
 ```
 
-Here the argument "bridgestan_path" should be set to the bridgestan install directory. Other users are referred to the bridgestan [documentation]( https://github.com/roualdes/bridgestan). Note that the model needs to be recompiled whenever the `.stan` file is modified. The compiled model can now be loaded using the following function. 
+Here the argument "bridgestan_path" should be set to the Bridgestan install directory. Other users are referred to the Bridgestan [documentation]( https://github.com/roualdes/bridgestan). Note that the model needs to be recompiled whenever the `.stan` file is modified. The compiled model can now be loaded using the following function. 
 
 ```{r}
 model <- get_model(model_name, model_seed = 1234, data=TRUE, bridgestan_path=BS_PATH)
@@ -91,7 +91,7 @@ Setting `data=TRUE` here indicates that the data.json file featured in the model
 
 ### Sampling
 
-Having loaded the model obejct, we can now sample from the loaded model using the following code:
+Having loaded the model object, we can now sample from the loaded model using the following code:
 
 ```{r bs_sampling}
 bs_fit <- NUTS(model = model, n_samples = 4000, warm_up = 2000)
@@ -134,5 +134,5 @@ For each sample, parameter and leapfrog algorithm update the following informati
 * `g1` `g2`: first and second gradient update 
 * `p1`, `p2`: first and second momentum updates: 
 * `h1_diag`, `h2_diag`: diagonal of first and second Hessian: 
-* `h1_param1_param2`, `h2_param1_param2`: lower triangular Hessian compontents: 
+* `h1_param1_param2`, `h2_param1_param2`: lower triangular Hessian components: 
 * `g1_l2`, `g2_l2`: $L^2$-norm of the first and second gradient: 

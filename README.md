@@ -12,7 +12,7 @@ extract sampler diagnostics from each algorithm step.
 
 ## Installation
 
-The hmcSanbox is built using the Bridgestan and Cmdstan frameworks,
+The hmcSandbox is built using the Bridgestan and Cmdstan frameworks,
 which both needs to be installed before the package can be used.
 
 Installation links:
@@ -37,9 +37,9 @@ In order to use a given stan-model within the hmc-sandbox, the
 corresponding stan file `model_name.stan` needs to be placed in a named
 folder `model_name`. This folder should also contain the input data in a
 JSON-file named `model_name.data.json`. This folder should in turn be
-placed in the folder `test_models` in the bridgestan directory.
+placed in the folder `test_models` in the Bridgestan directory.
 
-To illustrate this we will use the bridgestan test model `regression`,
+To illustrate this we will use the Bridgestan test model `regression`,
 defined as follows:
 
 ``` r
@@ -68,11 +68,11 @@ generated quantities {
 }"
 ```
 
-For this model, the bridgestan test_models folder contains a folder
+For this model, the Bridgestan test_models folder contains a folder
 `regression`, which in turn contains one model file `regression.stan`
 and one data file `regression.data.json`.
 
-Before the stan model can be used within bridgestan, the .stan file
+Before the stan model can be used within Bridgestan, the .stan file
 needs to be compiled in to compiled shared object `.so` file. For mac
 users the model can be compiled with the following function.
 
@@ -83,8 +83,8 @@ model_name <- "regression"
 compile_bs(model_name=model_name, bridgestan_path=BS_PATH)
 ```
 
-Here the argument “bridgestan_path” should be set to the bridgestan
-install directory. Other users are referred to the bridgestan
+Here the argument “bridgestan_path” should be set to the Bridgestan
+install directory. Other users are referred to the Bridgestan
 [documentation](https://github.com/roualdes/bridgestan). Note that the
 model needs to be recompiled whenever the `.stan` file is modified. The
 compiled model can now be loaded using the following function.
@@ -100,7 +100,7 @@ the model folder should be used when loading the model.
 
 ### Sampling
 
-Having loaded the model obejct, we can now sample from the loaded model
+Having loaded the model object, we can now sample from the loaded model
 using the following code:
 
 ``` r
@@ -221,15 +221,15 @@ trajectories <- get_trajectory_stats(bs_fit, n_samples=1)
 knitr::kable(trajectories)
 ```
 
-| sample | subtree | leapfrog_iter | tree_dir | theta_alpha | theta_beta | theta_sigma |   p1_alpha |   p1_beta |   p1_sigma |   p2_alpha |    p2_beta |   p2_sigma |   g1_alpha |    g1_beta |   g1_sigma |   g2_alpha |    g2_beta |   g2_sigma | h1_diag_alpha | h1_diag_beta | h1_diag_sigma | h2_diag_alpha | h2_diag_beta | h2_diag_sigma | h1_alpha_beta | h1_alpha_sigma | h1_beta_sigma | h2_alpha_beta | h2_alpha_sigma | h2_beta_sigma |    g1_l2 |    g2_l2 |
-|-------:|--------:|--------------:|---------:|------------:|-----------:|------------:|-----------:|----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|--------------:|-------------:|--------------:|--------------:|-------------:|--------------:|--------------:|---------------:|--------------:|--------------:|---------------:|--------------:|---------:|---------:|
-|      1 |       1 |             1 |        1 |   0.1267230 |   1.625613 |  -0.6250725 | -0.2421804 |  3.066648 | -1.4443940 |  0.8033479 |  2.2212990 | -1.3355481 |  4.6692382 | -1.9104765 | -1.2107180 |  6.5101996 | -5.2637431 |  0.6777516 |     -13.40201 |    -26.83514 |     -6.637986 |     -17.49425 |    -35.01961 |    -10.207988 |             0 |      -9.350485 |      3.477605 |             0 |      -9.350485 |      3.477605 | 5.188212 | 8.399347 |
-|      1 |       2 |             1 |       -1 |   0.3183201 |   1.448400 |  -0.3938705 | -1.7419257 |  3.680288 | -1.0555151 | -2.0606037 |  3.5945650 | -0.5960202 |  4.6692382 | -1.9104765 | -1.2107180 |  1.9843148 |  0.5337697 | -2.8611402 |     -13.40201 |    -26.83514 |     -6.637986 |     -11.03212 |    -22.09536 |     -3.509938 |             0 |      -9.350485 |      3.477605 |             0 |      -9.350485 |      3.477605 | 5.188212 | 3.522576 |
-|      1 |       2 |             2 |       -1 |   0.5480777 |   1.356238 |  -0.3812441 | -2.3792817 |  3.508842 | -0.1365254 | -2.2930048 |  3.1069807 |  0.3335658 |  1.9843148 |  0.5337697 | -2.8611402 | -0.5372208 |  2.5022751 | -2.9271208 |     -11.03212 |    -22.09536 |     -3.509938 |     -10.75802 |    -21.54714 |     -3.401631 |             0 |      -3.994095 |     -1.389406 |             0 |      -3.994095 |     -1.389406 | 3.522576 | 3.888190 |
-|      1 |       3 |             1 |       -1 |   0.7611725 |   1.285186 |  -0.4555696 | -2.2067280 |  2.705119 |  0.8036570 | -1.6802333 |  1.9499010 |  1.0088036 | -0.5372208 |  2.5022751 | -2.9271208 | -3.2783286 |  4.7025224 | -1.2773881 |     -10.75802 |    -21.54714 |     -3.401631 |     -12.47577 |    -24.98266 |     -6.566126 |             0 |       1.030595 |     -5.305936 |             0 |       1.030595 |     -5.305936 | 3.888190 | 5.873064 |
-|      1 |       3 |             2 |       -1 |   0.8725844 |   1.253807 |  -0.5678408 | -1.1537387 |  1.194683 |  1.2139503 | -0.2166900 |  0.0861129 |  1.0456213 | -3.2783286 |  4.7025224 | -1.2773881 | -5.8347286 |  6.9027425 |  1.0481352 |     -12.47577 |    -24.98266 |     -6.566126 |     -15.60647 |    -31.24406 |    -11.033233 |             0 |       6.495763 |     -9.690642 |             0 |       6.495763 |     -9.690642 | 5.873064 | 9.098928 |
-|      1 |       3 |             3 |       -1 |   0.8030223 |   1.280663 |  -0.6489765 |  0.7203587 | -1.022457 |  0.8772924 |  1.6165216 | -2.1718654 |  0.7590950 | -5.8347286 |  6.9027425 |  1.0481352 | -5.5801450 |  7.1570297 |  0.7359803 |     -15.60647 |    -31.24406 |    -11.033233 |     -18.34897 |    -36.72904 |    -10.290992 |             0 |      11.599650 |    -14.084109 |             0 |      11.599650 |    -14.084109 | 9.098928 | 9.105095 |
-|      1 |       3 |             4 |       -1 |   0.5603825 |   1.367898 |  -0.7082494 |  2.5126845 | -3.321274 |  0.6408977 |  2.7161785 | -4.0390842 |  0.8908761 | -5.5801450 |  7.1570297 |  0.7359803 | -1.2670978 |  4.4695971 | -1.5565427 |     -18.34897 |    -36.72904 |    -10.290992 |     -20.65330 |    -41.33772 |     -5.627548 |             0 |      11.096048 |    -14.598651 |             0 |      11.096048 |    -14.598651 | 9.105095 | 4.899557 |
+| sample | subtree | leapfrog_iter | tree_dir | theta_alpha | theta_beta | theta_sigma |   p1_alpha |    p1_beta |   p1_sigma |  p2_alpha |    p2_beta |   p2_sigma |   g1_alpha |   g1_beta |   g1_sigma |   g2_alpha |    g2_beta |   g2_sigma | h1_diag_alpha | h1_diag_beta | h1_diag_sigma | h2_diag_alpha | h2_diag_beta | h2_diag_sigma | h1_alpha_beta | h1_alpha_sigma | h1_beta_sigma | h2_alpha_beta | h2_alpha_sigma | h2_beta_sigma |     g1_l2 |     g2_l2 |
+|-------:|--------:|--------------:|---------:|------------:|-----------:|------------:|-----------:|-----------:|-----------:|----------:|-----------:|-----------:|-----------:|----------:|-----------:|-----------:|-----------:|-----------:|--------------:|-------------:|--------------:|--------------:|-------------:|--------------:|--------------:|---------------:|--------------:|--------------:|---------------:|--------------:|----------:|----------:|
+|      1 |       1 |             1 |       -1 |   0.2869001 |  0.8910415 |  -0.1461120 |  2.9754421 |   1.518554 |  3.4504193 |  2.623649 |  -0.417154 |  3.1730462 |  0.1161143 |  3.208823 | -2.7230189 |  1.4156572 |   7.789523 |  1.1161830 |     -3.051444 |    -6.134000 |     -5.229628 |     -6.737015 |   -13.505140 |    -11.977259 |             0 |     -0.2686600 |     -6.624328 |             0 |     -0.2686600 |     -6.624328 |  4.210090 |  7.995413 |
+|      1 |       2 |             1 |        1 |   0.6271549 |  1.0100882 |   0.4963878 |  3.0331512 |   3.113349 |  2.0970707 |  2.968374 |   3.518161 |  1.0884789 |  0.1161143 |  3.208823 | -2.7230189 | -0.2606703 |   1.629011 | -4.0586953 |     -3.051444 |    -6.134000 |     -5.229628 |     -1.892734 |    -3.816579 |     -3.055734 |             0 |     -0.2686600 |     -6.624328 |             0 |     -0.2686600 |     -6.624328 |  4.210090 |  4.381168 |
+|      1 |       2 |             2 |        1 |   0.7915798 |  1.1109143 |   0.5056402 |  2.9035973 |   3.922972 |  0.0798870 |  2.763945 |   4.225927 | -0.9810332 | -0.2606703 |  1.629011 | -4.0586953 | -0.5619783 |   1.219125 | -4.2692708 |     -1.892734 |    -3.816579 |     -3.055734 |     -1.858765 |    -3.748641 |     -2.651173 |             0 |      0.4711682 |     -3.482486 |             0 |      0.4711682 |     -3.482486 |  4.381168 |  4.475350 |
+|      1 |       3 |             1 |       -1 |   0.1582494 |  0.9515135 |  -0.4814833 |  2.2718562 |  -2.352862 |  2.8956730 |  1.161136 |  -5.766713 |  1.4407219 |  1.4156572 |  7.789523 |  1.1161830 |  4.4696737 |  13.737748 |  5.8548989 |     -6.737015 |   -13.505140 |    -11.977259 |    -13.137279 |   -26.305670 |    -20.786097 |             0 |     -2.8542665 |    -15.777056 |             0 |     -2.8542665 |    -15.777056 |  7.995413 | 15.587929 |
+|      1 |       3 |             2 |       -1 |   0.1553945 |  1.1874674 |  -0.4798353 |  0.0504149 |  -9.180564 | -0.0142293 | -1.065935 | -11.045718 | -0.2101712 |  4.4696737 | 13.737748 |  5.8548989 |  4.4923276 |   7.505606 |  0.7884937 |    -13.137279 |   -26.305670 |    -20.786097 |    -13.094182 |   -26.219475 |    -10.656085 |             0 |     -8.9520074 |    -27.686943 |             0 |     -8.9520074 |    -27.686943 | 15.587929 |  8.782759 |
+|      1 |       3 |             3 |       -1 |   0.2789730 |  1.5192958 |  -0.4328001 | -2.1822854 | -12.910873 | -0.4061130 | -2.832146 | -12.636863 |  0.2199185 |  4.4923276 |  7.505606 |  0.7884937 |  2.6151195 |  -1.102648 | -2.5192263 |    -13.094182 |   -26.219475 |    -10.656085 |    -11.922159 |   -23.875429 |     -4.122696 |             0 |     -8.9970867 |    -15.275093 |             0 |     -8.9970867 |    -15.275093 |  8.782759 |  3.794889 |
+|      1 |       3 |             4 |       -1 |   0.4761522 |  1.8370392 |  -0.5307764 | -3.4820076 | -12.362853 |  0.8459500 | -3.562934 |  -9.747224 |  0.6320515 |  2.6151195 | -1.102648 | -2.5192263 |  0.3256570 | -10.525607 |  0.8607535 |    -11.922159 |   -23.875429 |     -4.122696 |    -14.494282 |   -29.019675 |    -10.716517 |             0 |     -5.2525568 |      1.867675 |             0 |     -5.2525568 |      1.867675 |  3.794889 | 10.565763 |
 
 \` For each sample, parameter and leapfrog algorithm update the
 following information is currently extracted:
@@ -242,5 +242,5 @@ following information is currently extracted:
 - `p1`, `p2`: first and second momentum updates:
 - `h1_diag`, `h2_diag`: diagonal of first and second Hessian:
 - `h1_param1_param2`, `h2_param1_param2`: lower triangular Hessian
-  compontents:
+  components:
 - `g1_l2`, `g2_l2`: $L^2$-norm of the first and second gradient:
