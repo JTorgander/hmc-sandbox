@@ -2,7 +2,6 @@
 
 export(NUTS)
 export(compile_bs)
-export(get_mixture_data)
 export(get_model)
 export(get_trajectory_stats)
 export(initialize_model)

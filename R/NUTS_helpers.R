@@ -169,7 +169,7 @@ initialize_model <- function(model, warm_up){
   )
   # Extracting mass matrix, initial parameter values and step size
   mass_matrix = fit$inv_metric(matrix = TRUE)[[1]]
-  theta_0 <- fit$draws() %>% as.vector()
+  theta_0 <- as.vector(fit$draws())
   step_size <- fit$metadata()$step_size_adaptation
   # Extracting unconstrained parameter components
   all_params <-  fit$summary()$variable

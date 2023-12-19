@@ -3,11 +3,14 @@
 #' Extracting and summarizing parameter, momentum, gradient and hessian
 #'trajectories for a given NUTS-simulation
 #' @param sim Input NUTS simulation
+#' @param n_samples Number of samples for which trajectories should be extracted
+#' @import MASS
 #' @export
-get_trajectory_stats <- function(sim){
+get_trajectory_stats <- function(sim, n_samples = 1){
   traj <- sim$trajectories
   df <- data.frame()
-  for (i in 1:length(traj)){
+
+  for (i in 1:n_samples){
     # Extracting trajectory for one NUTS sample
     sample_trajectory <- traj[[i]]
     for (j in 1:length(sample_trajectory)){
@@ -49,10 +52,12 @@ get_trajectory_stats <- function(sim){
   }
   # Setting column names for output data frame
   variables <- paste0(c("theta", "p1", "p2", "g1", "g2",  "h1_diag", "h2_diag" ), "_")
-  var_names <- t(outer(variables, sim$param_unc_names, FUN = paste0 )) %>% as.vector()
+  var_names <- t(outer(variables, sim$param_unc_names, FUN = paste0))
+  var_names <- as.vector(var_names)
   var_names_cross <- outer(paste0(sim$param_unc_names, "_"), sim$param_unc_names, FUN=paste0)
   var_names_cross <- var_names_cross[upper.tri(var_names_cross)]
-  hessian_tri_names <- t(outer(c("h1_", "h2_"), var_names_cross, FUN = paste0 )) %>% as.vector()
+  hessian_tri_names <- t(outer(c("h1_", "h2_"), var_names_cross, FUN = paste0))
+  hessian_tri_names <- as.vector(hessian_tri_names)
   names(df) <- c("sample", "subtree", "leapfrog_iter", "tree_dir", var_names, hessian_tri_names, "g1_l2", "g2_l2")
 
   return(df)
