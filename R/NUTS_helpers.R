@@ -173,9 +173,10 @@ initialize_model <- function(model, warm_up){
   step_size <- fit$metadata()$step_size_adaptation
   # Extracting unconstrained parameter components
   all_params <-  fit$summary()$variable
+  all_params <- str_replace_all(str_replace_all(all_params,"[\\[\\,]", "\\."), "\\]", "") #Ensuring that names match
   unconstr_params_idx <- which(all_params %in% model$param_names)
   theta_0 <- theta_0[unconstr_params_idx]
-
+  stopifnot(length(theta_0) == length(model$param_names))
   return(list(mass_matrix= mass_matrix,
               theta_0 = theta_0,
               step_size = step_size))
