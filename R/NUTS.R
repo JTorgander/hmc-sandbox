@@ -15,7 +15,7 @@ source('./R/NUTS_helpers.R')
 #' @import MASS
 #' @export
 NUTS <- function(model_object, n_samples, warm_up = floor(n_samples/2), initialize_model = TRUE, return_hessian = TRUE, initial_params = NULL){
-    # Initializing model parameters and mass matrix
+   # Initializing model parameters and mass matrix
     if (initialize_model || is.null(initial_params)){
       message("Initializing model..\n\nInitialization messages:")
       init <- initialize_model(model_object, warm_up)
@@ -26,7 +26,7 @@ NUTS <- function(model_object, n_samples, warm_up = floor(n_samples/2), initiali
     eps <- init$step_size
     inv_mass_matrix <- init$mass_matrix
     theta_0 <- init$theta_0
-    model <- model_object$BS_model
+    model <- model_object$model$bs_model
     delta_max = 2000
     dim_constr <- length(theta_0)
     theta_prev <- model$param_unconstrain(theta_0)

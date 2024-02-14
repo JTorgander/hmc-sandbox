@@ -157,9 +157,9 @@ build_tree <- function(stan_model, theta, p, u, v, j, eps, delta_max, inv_mass_m
 #' @param model Underlying cmdstan model object
 #' @param warmup Burn-in-period of the initialization
 #' @export
-initialize_model <- function(model, warm_up){
+initialize_model <- function(model_object, warm_up){
   # Initializing model
-  fit <- model$stan_model$sample(
+  fit <- model_object$model$cmdstan_model$sample(
     data = model$data,
     chains = 1,
     iter_warmup = warm_up,
@@ -174,9 +174,9 @@ initialize_model <- function(model, warm_up){
   # Extracting unconstrained parameter components
   all_params <-  fit$summary()$variable
   all_params <- str_replace_all(str_replace_all(all_params,"[\\[\\,]", "\\."), "\\]", "") #Ensuring that names match
-  unconstr_params_idx <- which(all_params %in% model$param_names)
+  unconstr_params_idx <- which(all_params %in% model_object$param_names)
   theta_0 <- theta_0[unconstr_params_idx]
-  stopifnot(length(theta_0) == length(model$param_names))
+  stopifnot(length(theta_0) == length(model_object$param_names))
   return(list(mass_matrix= mass_matrix,
               theta_0 = theta_0,
               step_size = step_size))

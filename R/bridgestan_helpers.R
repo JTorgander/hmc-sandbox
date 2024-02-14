@@ -1,6 +1,3 @@
-
-BS_PATH <- "~/Documents/bridgestan" #Replace with path to bridgestan directory
-
 #' Stan Model getter
 #'
 #' Fetches (compiled) bridgestan and regular stan model and returns the corresponding
@@ -15,47 +12,36 @@ BS_PATH <- "~/Documents/bridgestan" #Replace with path to bridgestan directory
 get_model <- function(model_name, model_seed, sampler_type, data = TRUE,  bridgestan_path = BS_PATH){
 
   # Generating paths to models and data
-  model_path <- paste0(bridgestan_path, "/test_models/", model_name)
+  model_dir <- paste0(bridgestan_path, "/test_models/", model_name)
+  # Loading CMDstan model
+  model_path_cmd <- paste0(model_dir, "/", model_name, ".stan")
+  cmdstan_model <-  cmdstanr::cmdstan_model(model_path_cmd)
 
   if (sampler_type == "bridgestan"){
 
-    model_path <-  paste0(model_path, "/", model_name, "_model.so")
+    model_path <-  paste0(model_dir, "/", model_name, "_model.so")
 
     if (data){
-      data_path <- paste0(model_path, "/", model_name, ".data.json")
+      data_path <- paste0(model_dir, "/", model_name, ".data.json")
       data <- jsonlite::fromJSON(data_path)
     } else {
       data_path <- ""
       data <- NA
     }
-
     message("Loading Bridgestan model")
-    model <-  bridgestan::StanModel$new(model_path, data_path, model_seed)
+    bs_model <-  bridgestan::StanModel$new(model_path, data_path, model_seed)
+    model <- list(bs_model = bs_model, cmdstan_model = cmdstan_model)
+    param_names <- bs_model$param_names()
 
-  } else if (sampler_type == "cmdstan"){
-
-    model_path <- paste0(model_path, "/", model_name, ".stan")
-
-    model <-  cmdstanr::cmdstan_model(model_path)
-    data <- list()
+  } else{
+    model <- cmdstan_model
+    param_names <- NA
   }
- # bs_stan_model_path <- paste0(model_path, "/", model_name, "_model.so")
-  #stan_model_path <- paste0(model_path, "/", model_name, ".stan")
-
-
-
-
-  # Generating stan model
-  #stan_model <- stan_model(stan_model_path)
-  #stan_model <- cmdstanr::cmdstan_model(stan_model_path)
-  # Generating Bridgestan-model
-  message("Loading Bridgestan model")
-  #BS_model <-  bridgestan::StanModel$new(bs_stan_model_path, data_path, model_seed)
-  #param_names <- BS_model$param_names()
 
   message("Models loaded!")
 
   return(list(model = model,
+              param_names = param_names,
               sampler_type = sampler_type,
               data = data
               )
