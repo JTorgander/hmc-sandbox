@@ -156,11 +156,12 @@ build_tree <- function(stan_model, theta, p, u, v, j, eps, delta_max, inv_mass_m
 #' Using Stan to initialize the mass matrix, step size and initial parameter value.
 #' @param model Underlying cmdstan model object
 #' @param warmup Burn-in-period of the initialization
+#' @import stringr
 #' @export
 initialize_model <- function(model_object, warm_up){
   # Initializing model
   fit <- model_object$model$cmdstan_model$sample(
-    data = model$data,
+    data = model_object$data,
     chains = 1,
     iter_warmup = warm_up,
     iter_sampling = 1,

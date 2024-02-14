@@ -3,13 +3,15 @@
 #' Fetches (compiled) bridgestan and regular stan model and returns the corresponding
 #' StanModel objects
 #' @param bridgestan_path Path to compiled bridgestan models and data
+#' @param model_seed Seed value for the sampler
 #' @param model_name Name of bridgestan model to be imported
+#' @param sampler_type Which type of HMC framework which should be used
 #' @param data Boolean indicating if the corresponding data.json file should be included.
 #' @import jsonlite
 #' @import cmdstanr
 #' @import bridgestan
 #' @export
-get_model <- function(model_name, model_seed, sampler_type, data = TRUE,  bridgestan_path = BS_PATH){
+get_model <- function(model_name, model_seed, sampler_type = "bridgestan", data = TRUE,  bridgestan_path = BS_PATH){
 
   # Generating paths to models and data
   model_dir <- paste0(bridgestan_path, "/test_models/", model_name)

@@ -84,22 +84,21 @@ compile_bs(model_name=model_name, bridgestan_path=BS_PATH)
 Here the argument "bridgestan_path" should be set to the Bridgestan install directory. Other users are referred to the Bridgestan [documentation]( https://github.com/roualdes/bridgestan). Note that the model needs to be recompiled whenever the `.stan` file is modified. The compiled model can now be loaded using the following function. 
 
 ```{r}
-model <- get_model(model_name, model_seed = 1234, data=TRUE, bridgestan_path=BS_PATH)
+bs_model <- get_model(model_name, model_seed = 1234, data=TRUE, sampler_type = "bridgestan", bridgestan_path=BS_PATH)
 ```
-
-Setting `data=TRUE` here indicates that the data.json file featured in the model folder should be used when loading the model.
+Setting `sampler_type = "bridgestan"` here indicates that the implementation based on bridgestan should be used and setting `data=TRUE` here indicates that the data.json file featured in the model folder should be used when loading the model.
 
 ### Sampling
 
 Having loaded the model object, we can now sample from the loaded model using the following code:
 
 ```{r bs_sampling}
-bs_fit <- NUTS(model = model, n_samples = 4000, warm_up = 2000)
+bs_fit <- NUTS(model = bs_model, n_samples = 4000, warm_up = 2000)
 ```
 This will yield 4000 samples using a burn-in/initialization period of 2000 samples. For reference purposes, the model object also contains the original cmdstan model. This model can in turn be sampled from as before using the `sample` method:
 
 ```{r stan_sampling}
-stan_fit <- model$stan_model$sample(data = model$data, chains = 1, iter_sampling = 4000)
+stan_fit <- bs_model$model$cmdstan_model$sample(data = bs_model$data, chains = 1, iter_sampling = 4000)
 ```
 ### Inspecting samples
 
