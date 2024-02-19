@@ -177,6 +177,7 @@ initialize_model <- function(model_object, warm_up){
   all_params <- str_replace_all(str_replace_all(all_params,"[\\[\\,]", "\\."), "\\]", "") #Ensuring that names match
   unconstr_params_idx <- which(all_params %in% model_object$param_names)
   theta_0 <- theta_0[unconstr_params_idx]
+  mass_matrix <- mass_matrix[unconstr_params_idx, unconstr_params_idx]
   stopifnot(length(theta_0) == length(model_object$param_names))
   return(list(mass_matrix= mass_matrix,
               theta_0 = theta_0,
