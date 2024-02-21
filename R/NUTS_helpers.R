@@ -169,7 +169,7 @@ initialize_model <- function(model_object, warm_up){
     show_messages = FALSE
   )
   # Extracting mass matrix, initial parameter values and step size
-  n_unconstr_params <- length(model_object$model$bs_model$param_unc_names)
+  n_unconstr_params <- length(model_object$model$bs_model$param_unc_names())
   is_matrix = if_else(n_unconstr_params > 1, TRUE, FALSE)
   mass_matrix = fit$inv_metric(matrix = is_matrix)[[1]]
   theta_0 <- as.vector(fit$draws())
