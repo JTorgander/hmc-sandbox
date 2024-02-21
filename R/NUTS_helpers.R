@@ -169,15 +169,16 @@ initialize_model <- function(model_object, warm_up){
     show_messages = FALSE
   )
   # Extracting mass matrix, initial parameter values and step size
-  mass_matrix = fit$inv_metric(matrix = TRUE)[[1]]
+  n_unconstr_params <- length(model_object$model$bs_model$param_unc_names)
+  is_matrix = if_else(n_unconstr_params > 1, TRUE, FALSE)
+  mass_matrix = fit$inv_metric(matrix = is_matrix)[[1]]
   theta_0 <- as.vector(fit$draws())
   step_size <- fit$metadata()$step_size_adaptation
-  # Extracting unconstrained parameter components
+  # Extracting constrained parameter components
   all_params <-  fit$summary()$variable
   all_params <- str_replace_all(str_replace_all(all_params,"[\\[\\,]", "\\."), "\\]", "") #Ensuring that names match
-  unconstr_params_idx <- which(all_params %in% model_object$param_names)
-  theta_0 <- theta_0[unconstr_params_idx]
-  mass_matrix <- mass_matrix[unconstr_params_idx, unconstr_params_idx]
+  constr_params_idx <- which(all_params %in% model_object$param_names)
+  theta_0 <- theta_0[constr_params_idx]
   stopifnot(length(theta_0) == length(model_object$param_names))
   return(list(mass_matrix= mass_matrix,
               theta_0 = theta_0,
